@@ -2,9 +2,12 @@ const db = require("./../db/db");
 const _ = require("lodash");
 
 module.exports = {
+  /* This method checks if the user with this IP already voted on the poll the option is for. 
+  This allows users to vote multiple days in a row of course, but it enables users to vote 
+  without logging in, making the service more accessible. */
   postVote(req,res) {
     const voteData = {
-      userId: req.user.id,
+      ip: req.ip,
       optionId: req.params.optionId
     };
     let pollId;
@@ -23,28 +26,28 @@ module.exports = {
       options.forEach((el, index, arr) => {
         optionIds.push(el.dataValues.id);
       });
-      return db.vote.findOne({
+      return db.vote.findOrCreate({
         where: {
-          userId: voteData.userId,
+          ip: voteData.ip,
           optionId: optionIds
+        }, 
+        defaults: {
+          ip: voteData.ip,
+          optionId: voteData.optionId
         }
       });
     })
-    .then((vote) => {
-      if(vote) {
+    .spread((vote, created) => {
+      if (created) {
+        res.status(201).end();
+      } else {
         res.status(403).json({ err: "User already voted on this poll" });
-        throw new Error("voted");
       }
-      return db.vote.create(voteData);
     })
-    .then((vote) => {
-      return vote.reload();
-    }).then((vote) => {
-      res.status(201).json(_.pick(vote, "userId", "optionId"));
-    }).catch((err) => {
-      if(!err.Error === "voted") {
-        res.status(500).json({ err: "Internal Server Error" });
-      }
+    .catch((err) => {
+      res.status(500).end();
+      console.log(err);
     });
   }
 }
+    

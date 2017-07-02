@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "The API for Voto build with Node.js and Express.js",
   "repository": "https://github.com/zetamorph/voto.git",
-  "main": "src/server.js",
+  "main": "src/app.js",
   "scripts": {
-    "production": "cross-env NODE_ENV=production pm2 start src/server.js --name voto-api",
+    "production": "cross-env NODE_ENV=production pm2 start src/app.js --name voto-api",
     "test": "cross-env NODE_ENV=test mocha",
-    "start": "cross-env NODE_ENV=dev nodemon src/server.js"
+    "start": "cross-env NODE_ENV=dev nodemon src/app.js"
   },
   "author": "",
   "license": "ISC",

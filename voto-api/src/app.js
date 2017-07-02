@@ -13,7 +13,7 @@ const passport = require("passport");
 const FacebookStrategy = require("passport-facebook").Strategy;
 const path = require('path');
 
-//const routes = require("./routes");
+const routes = require("./routes");
 const seed = require("./db/seed");
 const Sequelize = require("sequelize");
 const sqlite = require ("sqlite3");
@@ -21,30 +21,33 @@ const app = express();
 
 let initCallback;
 
-/* Configure Passport */
+/* Configure Passport FacebookStrategy */
 
 passport.use(new FacebookStrategy(
   {
     clientID: config.get("authConfig.facebook.clientID"),
     clientSecret: config.get("authConfig.facebook.clientSecret"), 
-    callbackURL: "http://localhost:8000/auth/facebook/callback"
-    //config.get("authConfig.facebook.callBackURL")
+    callbackURL: config.get("authConfig.facebook.callBackURL")
   },
   function(accessToken, refreshToken, profile, cb) {
     db.user.findOrCreate({
       where: { facebookID: profile.id },
-      defaults: { username: profile.displayName, email: profile.email }
+      defaults: { username: profile.displayName, email: profile.email, facebookToken: accessToken }
     })
     .then((user) => cb(null, user), (err) => cb(err));
   }
 ));
 
 passport.serializeUser((user, cb) => {
-  cb(null, user);
+  cb(null, user.id);
 });
 
-passport.deserializeUser((obj, cb) => {
-  cb(null, obj);
+passport.deserializeUser((id, cb) => {
+  db.user.findById(user.id).then((user) => {
+    cb(null, user);
+  }, (err) => {
+    cb(err);
+  });
 });
 
 /* If this is set, the ip property of a request is the left-most entry in the X-Forwarded-For header, 
@@ -57,7 +60,7 @@ if(env !== "test") {
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(middleware.setHeaders);
-//app.use(routes);
+app.use(routes);
 app.use(expressSession({
   secret: config.get("appConfig.sessionSecret"),
   resave: true,
@@ -68,7 +71,7 @@ app.use(passport.session());
 
 app.get('/auth/facebook',passport.authenticate('facebook', { scope : ['email'] }));
 app.get('/auth/facebook/callback',passport.authenticate('facebook', {
-  successRedirect : '/loggedIn',
+  successReturnToOrRedirect : '/loggedIn',
   failureRedirect : '/login',
   scope:['email']
 }));
@@ -78,7 +81,7 @@ app.get("/", (req,res) => {
 });
 
 app.get("/loggedIn", (req,res) => {
-  res.send("Hi! You´re logged in");
+  res.json(req.user);
 });
 
 db.sequelize.sync({

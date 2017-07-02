@@ -5,7 +5,7 @@ const voteRoutes = require("./votes");
 const userRoutes = require("./users");
 const router = express.Router();
 
-router.use(optionRoutes, pollRoutes, voteRoutes);
-router.use("/users", userRoutes);
+router.use(pollRoutes, voteRoutes);
+//router.use("/users", userRoutes);
 
 module.exports = router;
