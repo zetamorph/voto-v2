@@ -26,6 +26,7 @@
     "node-config": "0.0.2",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
+    "passport-facebook-token": "^3.3.0",
     "sequelize": "^3.30.2",
     "sqlite3": "^3.1.8",
     "underscore": "^1.8.3",

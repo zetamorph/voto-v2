@@ -10,7 +10,8 @@ const middleware = require("./middleware/middleware")(db);
 
 const morgan = require("morgan");
 const passport = require("passport");
-const FacebookStrategy = require("passport-facebook").Strategy;
+const FacebookTokenStrategy = require("passport-facebook-token");
+const FacebookStrategy = require("passport-facebook");
 const path = require('path');
 
 const routes = require("./routes");
@@ -23,30 +24,32 @@ let initCallback;
 
 /* Configure Passport FacebookStrategy */
 
-passport.use(new FacebookStrategy(
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new FacebookTokenStrategy(
   {
     clientID: config.get("authConfig.facebook.clientID"),
-    clientSecret: config.get("authConfig.facebook.clientSecret"), 
-    callbackURL: config.get("authConfig.facebook.callBackURL")
+    clientSecret: config.get("authConfig.facebook.clientSecret"),
+    profileFields: ["id", "displayName", "email"]
   },
   function(accessToken, refreshToken, profile, cb) {
     db.user.findOrCreate({
       where: { facebookID: profile.id },
-      defaults: { username: profile.displayName, email: profile.email, facebookToken: accessToken }
-    })
-    .then((user) => cb(null, user), (err) => cb(err));
+      defaults: { facebookID: profile.id, username: profile.displayName, email: profile.email, facebookToken: accessToken }
+    }, (err, user) => {
+      cb(err, user);
+    });
   }
 ));
 
 passport.serializeUser((user, cb) => {
-  cb(null, user.id);
+  cb(null, user);
 });
 
-passport.deserializeUser((id, cb) => {
-  db.user.findById(user.id).then((user) => {
-    cb(null, user);
-  }, (err) => {
-    cb(err);
+passport.deserializeUser((user, cb) => {
+  db.user.findById(user.id, (err, user) => {
+    cb(err, user);
   });
 });
 
@@ -66,23 +69,6 @@ app.use(expressSession({
   resave: true,
   saveUninitialized: true
 }));
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.get('/auth/facebook',passport.authenticate('facebook', { scope : ['email'] }));
-app.get('/auth/facebook/callback',passport.authenticate('facebook', {
-  successReturnToOrRedirect : '/loggedIn',
-  failureRedirect : '/login',
-  scope:['email']
-}));
-
-app.get("/", (req,res) => {
-  res.send("<a href='/auth/facebook'>login</a>");
-});
-
-app.get("/loggedIn", (req,res) => {
-  res.json(req.user);
-});
 
 db.sequelize.sync({
   force: config.get("dbConfig.force")
