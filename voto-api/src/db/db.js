@@ -14,7 +14,6 @@ db.user = sequelize.import(__dirname + "/../models/user.js");
 db.poll = sequelize.import(__dirname + "/../models/poll.js");
 db.option = sequelize.import(__dirname + "/../models/option.js");
 db.vote = sequelize.import(__dirname + "/../models/vote.js");
-db.token = sequelize.import(__dirname + "/../models/token.js");
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
@@ -28,11 +27,6 @@ db.user.hasMany(db.poll);
 
 db.poll.hasMany(db.option);
 db.option.belongsTo(db.poll);
-
-// M:N association between users and votes
-
-db.user.hasMany(db.vote);
-db.vote.belongsTo(db.user);
 
 // 1:N association between options and votes
 

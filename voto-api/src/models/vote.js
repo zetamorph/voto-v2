@@ -1,4 +1,9 @@
 module.exports = function (sequelize, DataTypes) {
-  return sequelize.define('vote', {
+  return sequelize.define("vote", {
+    ip: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {}
+    },
   });
 }

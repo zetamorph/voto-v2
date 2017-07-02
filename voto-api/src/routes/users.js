@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post("/", userController.signUp);
 router.post("/login", userController.signIn);
-router.delete("/login", middleware.requireAuth, userController.logOut);
-router.delete("/:userId", middleware.requireAuth, userController.deleteUser);
+router.delete("/login", userController.logOut);
+router.delete("/:userId", userController.deleteUser);
 
 module.exports = router;
