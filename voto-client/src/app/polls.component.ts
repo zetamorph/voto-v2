@@ -13,12 +13,12 @@ export class PollsComponent implements OnInit {
 
   constructor(private pollService: PollService) {}
 
-  getPolls(): void {
+  getPolls() {
     this.pollService.getPolls()
-    .subscribe(
-      polls => this.polls = polls,
-      err => console.error(err)
-    )
+      .subscribe(
+        polls => this.polls = polls,
+        err => console.error(err)
+      )
   }
 
   ngOnInit(): void {

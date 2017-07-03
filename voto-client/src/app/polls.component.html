@@ -1,5 +1,7 @@
 <div class="ui stackable two column grid">
-  <div *ngFor="let poll of polls" class="polls-item eight wide column">
-    <h3>{{poll.title}}</h3>
+  <div  *ngFor="let poll of polls" class="polls-item eight wide column">
+    <a routerLink="/polls/{{poll.id}}">  
+      <h3>{{poll.title}}</h3>
+    </a>
   </div>
 </div>

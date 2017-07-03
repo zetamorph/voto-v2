@@ -16,5 +16,10 @@
   crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
   <script type="text/javascript" src="https://connect.facebook.net/en_US/sdk.js"></script>
+  <script>
+    $('app-root .sidebar')
+    .sidebar({context:$('app-root')})
+    .sidebar('setting', 'transition', 'overlay') ;
+  </script>
 </body>
 </html>

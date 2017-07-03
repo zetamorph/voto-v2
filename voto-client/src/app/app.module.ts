@@ -15,6 +15,7 @@ import { PollDetailComponent } from "./poll-detail.component";
 import { ChartComponent } from "./chart.component";
 import { LoginComponent } from "./login.component";
 import { PollService } from "./poll.service";
+import { UserService } from "./user.service";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { PollService } from "./poll.service";
     ChartModule,
     AppRoutingModule
   ],
-  providers: [ PollService ],
+  providers: [ PollService, UserService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

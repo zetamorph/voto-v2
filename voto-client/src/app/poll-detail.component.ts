@@ -7,12 +7,12 @@ import { PollService } from "./poll.service";
   templateUrl: "./poll-detail.component.html"
 })
 export class PollDetailComponent implements OnInit {
-  poll: object;  
+  poll: Poll;  
   constructor(
     private pollService: PollService
   ) {}
 
-  getPoll(pollId): void {
+  getPoll(pollId) {
     this.pollService.getPoll(pollId)
       .subscribe(
         poll => this.poll = poll,

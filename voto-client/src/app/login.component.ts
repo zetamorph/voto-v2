@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FacebookService, LoginResponse } from "ngx-facebook";
 
+import { UserService } from "./user.service";
+
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
@@ -8,21 +10,21 @@ import { FacebookService, LoginResponse } from "ngx-facebook";
 })
 export class LoginComponent {
   constructor(
-    private facebookService: FacebookService
+    private facebookService: FacebookService,
+    private userService: UserService
   ) {
-    console.log("Initializing FacebookService");
-
     facebookService.init({
       appId: "1795637644083185",
       version: "v2.9"
     });
   }
 
+  status: any;
+
   fbLogin() {
     this.facebookService.login()
     .then((res: LoginResponse) => {
-      console.log("logged in!", res);
-      
+      return this.apiLogin(res.authResponse.accessToken);
     })
     .catch(console.log);
   }
@@ -30,8 +32,21 @@ export class LoginComponent {
   fbLogout() {
     this.facebookService.logout()
     .then(() => {
-      console.log("logged out!");
+      this.apiLogout();
     })
     .catch(console.error);
   }
+
+  apiLogin(token: string) {
+    this.userService.signup(token)
+      .subscribe(
+        success => this.status = status,
+        err => console.log(err)
+      )
+  }
+
+  apiLogout(): void {
+    this.userService.signOut();
+  }
+
 }
