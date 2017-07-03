@@ -1,0 +1,7 @@
+<div>
+  <label>
+    Title
+    <input #newPoll />
+  </label>
+  <button (click)="addPoll(newPoll.value); newPoll.value=''">Create Poll</button>
+</div>
