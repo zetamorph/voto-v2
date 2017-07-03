@@ -7,10 +7,6 @@ module.exports = {
     const query = req.query;
     
     let sqlOptions = {};
-    sqlOptions.include = {
-      model: db.user,
-      attributes: ["id", "username"]
-    };
     sqlOptions.limit = query.limit || 20;
     sqlOptions.order = [["id","DESC"]];
 

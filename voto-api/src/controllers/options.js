@@ -2,7 +2,23 @@ const db = require("./../db/db");
 const _ = require("lodash");
 
 module.exports = {
-  postOption(req,res) {
+
+  getOptions(req, res) {
+    const pollId = parseInt(req.params.pollId);
+
+    db.option.findAll({
+      where: { pollId: pollId },
+      include: db.vote
+    })
+    .then((options) => {
+      res.status(200).json(options);
+    })
+    .catch((err) => {
+      res.status(500).json({ err: "Internal Server Error" });
+    });
+  },
+
+  postOption(req, res) {
     const pollId = parseInt(req.params.pollId);
     const userId = req.user.id;
 
