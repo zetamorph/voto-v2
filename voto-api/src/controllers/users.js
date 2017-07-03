@@ -1,21 +1,18 @@
-_ = require("lodash");
+const _ = require("lodash");
+const config = require("config");
 const db = require("./../db/db");
+const jwt = require("jsonwebtoken");
 
 module.exports = {
 
-  signUp(req,res) {
-    const body = _.pick(req.body, "username", "email", "password");
-
-    db.user.create(body)
-    .then((user) => {
-      res.status(201).json(user.toPublicJSON()).end;
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(400).json(err).end;
-    });
+  signIn(req,res) {
+    console.log("from userCOntroller");
+    console.log(req.user.id);
+    const token = jwt.sign({id: req.user.id}, config.get("authConfig.jwt.secret"));
+    console.log(token);
+    res.end();
   },
-
+/*
   signIn(req,res) {
     const body = _.pick(req.body, "email", "password");
     let userInstance = {};
@@ -74,5 +71,6 @@ module.exports = {
       res.status(500).end();
     });
   }
+*/
 }
    

@@ -16,6 +16,9 @@ module.exports = function (sequelize, DataTypes) {
         isEmail: true
       }
     },
+    token: {
+      type: DataTypes.STRING,
+    },
     facebookID: {
       type: DataTypes.STRING
     },

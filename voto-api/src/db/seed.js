@@ -1,6 +1,6 @@
 module.exports = function (db, done) {
   db.user.bulkCreate([
-    {username: "markus", email: "markus@markus.de"},
+    {username: "markus", email: "markus@markus.de", facebookID: "843838389292"},
     {username: "johannes", email: "johannes@johannes.de"},
     {username: "marius", email: "marius@marius.de"},
     {username: "marcus", email: "marcus@marcus.de"},
