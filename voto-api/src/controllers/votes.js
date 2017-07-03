@@ -10,6 +10,7 @@ module.exports = {
       ip: req.ip,
       optionId: req.params.optionId
     };
+    
     let pollId;
 
     db.option.findById(voteData.optionId)

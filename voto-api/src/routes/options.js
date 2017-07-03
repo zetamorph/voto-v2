@@ -1,8 +1,9 @@
 const db = require("./../db/db");
 const express = require("express");
 const optionController = require("./../controllers/options");
+const passport = require("passport");
 const router = express.Router();
 
-router.post("/polls/:pollId/options", optionController.postSingleOption);
+router.post("/polls/:pollId/options", passport.authenticate("jwt"), optionController.postOption);
 
 module.exports = router;

@@ -27,22 +27,22 @@ module.exports = function (db, done) {
   })
   .then(() => {
     return db.option.bulkCreate([
-      {title: "dog", pollId: 1},
-      {title: "cat", pollId: 1},
-      {title: "horse", pollId: 1},
+      {title: "dog", pollId: 1, userId: 1},
+      {title: "cat", pollId: 1, userId: 1},
+      {title: "horse", pollId: 1, userId: 1},
 
-      {title: "andromeda", pollId: 2},
-      {title: "sirius", pollId: 2},
+      {title: "andromeda", pollId: 2, userId: 1},
+      {title: "sirius", pollId: 2, userId: 1},
 
-      {title: "beer", pollId: 3},
-      {title: "liquor", pollId: 3},
-      {title: "vodka", pollId: 3},
+      {title: "beer", pollId: 3, userId: 1},
+      {title: "liquor", pollId: 3, userId: 1},
+      {title: "vodka", pollId: 3, userId: 1},
 
-      {title: "becks", pollId: 5},
-      {title: "radeberger", pollId: 5},
+      {title: "becks", pollId: 5, userId: 1},
+      {title: "radeberger", pollId: 5, userId: 1},
 
-      {title: "friedrich", pollId: 6},
-      {title: "klaus", pollId: 6},
+      {title: "friedrich", pollId: 6, userId: 1},
+      {title: "klaus", pollId: 6, userId: 1},
 
       {title: "black widow", pollId: 8},
       {title: "Brown Recluse", pollId: 8},

@@ -1,14 +1,10 @@
 const bodyParser = require("body-parser");
 const config = require("config");
-const cookieParser = require("cookie-parser");
 const db = require("./db/db");
 const env = process.env.NODE_ENV;
 const express = require("express");
-
 const middleware = require("./middleware/middleware")(db);
-
 const morgan = require("morgan");
-
 const path = require('path');
 const passport = require("./middleware/auth");
 const routes = require("./routes");
@@ -18,8 +14,6 @@ const sqlite = require ("sqlite3");
 const app = express();
 
 let initCallback;
-
-/* Configure Passport FacebookStrategy */
 
 app.use(passport.initialize());
 
@@ -31,7 +25,7 @@ if(env !== "test") {
   app.use(morgan("combined"));
 }
 app.use(bodyParser.json());
-app.use(cookieParser());
+// set Headers for CORS 
 app.use(middleware.setHeaders);
 app.use(routes);
 

@@ -4,17 +4,37 @@ const db = require("./../db/db");
 module.exports = {
 
   getPolls(req,res) {
-    db.poll.findAll({ 
-      include: { 
-        model: db.user, 
-        attributes: ["id", "username"] 
+    const query = req.query;
+    
+    let sqlOptions = {};
+    sqlOptions.include = {
+      model: db.user,
+      attributes: ["id", "username"]
+    };
+    sqlOptions.limit = query.limit || 20;
+    sqlOptions.order = [["id","DESC"]];
+
+    if(query.offset) {
+      sqlOptions.offset = query.offset;
+    }
+
+    if(query.sort) {
+      switch (query.sort) {
+        case "popular": {
+          console.log("popular");
+        }
+        case "random": {
+          sqlOptions.order = "random()";
+        }
       }
-    })
+    }
+
+    db.poll.findAll(sqlOptions)
     .then((polls) => {
       res.status(200).json(polls);
     })
     .catch((err) => {
-      res.status(404).json(err);
+      res.status(404).json({ error: "No polls not found" });
     });
   },
 
@@ -23,16 +43,10 @@ module.exports = {
     let resObj;
 
     db.poll.findOne({
-      where: { id: pollId },
-      attributes: ["id", "title"],
-      include: {
-        model: db.user,
-        attributes: ["id", "username"]
-      }
+      where: { id: pollId }
     })
-    .then((result) => {
-      resObj = result.dataValues;
-      resObj.user = result.dataValues.user.dataValues;
+    .then((poll) => {
+      resObj = poll.dataValues;
       return db.sequelize.query(
         "SELECT options.id AS optionId, options.title AS title,  " +
         "COUNT (votes.optionId) AS votes FROM options " +
@@ -58,8 +72,7 @@ module.exports = {
       userId: req.user.id,
     })
     .then((createdPoll) => {
-      createdPoll = _.pick(createdPoll, "id", "title");
-      res.status(201).json(createdPoll);
+      res.status(201).json(createdPoll.dataValues);
     });
   },
 

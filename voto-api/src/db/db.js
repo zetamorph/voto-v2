@@ -33,4 +33,9 @@ db.option.belongsTo(db.poll);
 db.option.hasMany(db.vote);
 db.vote.belongsTo(db.option);
 
+// 1:N association between users and options
+
+db.option.belongsTo(db.user);
+db.user.hasMany(db.option);
+
 module.exports = db;
