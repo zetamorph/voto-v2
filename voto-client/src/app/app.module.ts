@@ -7,6 +7,7 @@ import { HttpInterceptorModule } from "ng-http-interceptor";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FacebookModule } from "ngx-facebook";
 import { NgSemanticModule } from "ng-semantic/ng-semantic";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AppComponent } from "./app.component";
 import { PollsComponent } from "./polls.component";
@@ -38,7 +39,8 @@ import { HttpAuthInterceptorService } from "./http-interceptor.service";
     NgSemanticModule,
     HttpInterceptorModule,
     FacebookModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [ 
     PollService, 
@@ -46,6 +48,6 @@ import { HttpAuthInterceptorService } from "./http-interceptor.service";
     OptionService,
     HttpAuthInterceptorService
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ AppComponent ],
 })
 export class AppModule { }

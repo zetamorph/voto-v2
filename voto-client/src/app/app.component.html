@@ -8,10 +8,13 @@
   <a class="item" (click)="invertedSidebar.hide()">
     <i class="remove icon"></i>Close
   </a>
-  <a class="item">
+  <a class="item" (click)="goTo({sort: 'popular'})">
     <i class="home icon"></i>Popular
   </a>
-  <a class="item">
+  <a class="item" (click)="goTo({sort: 'random'})">
+    <i class="home icon"></i>Random
+  </a>
+  <a class="item" (click)="goTo({sort: 'latest'})">
     <i class="block layout icon"></i>Latest
   </a>
   <a class="item" routerLink="/polls/new">
@@ -20,7 +23,7 @@
   <a class="item">
     <i class="smile icon"></i>My Polls
   </a>
-  <a class="item" href="/login">
+  <a class="item" routerLink="/login">
     <i class="smile icon"></i>Login
   </a>
 </sm-sidebar>

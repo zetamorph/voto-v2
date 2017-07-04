@@ -5,7 +5,6 @@ import { Poll } from "./poll";
 import { Option } from "./option";
 import { Observable } from 'rxjs/Rx';
 
-import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -17,8 +16,14 @@ export class PollService {
   ) {}
   apiUrl = "http://localhost:8000/";
 
-  getPolls(): Observable<Poll[]> {
-    return this.http.get(this.apiUrl + "polls")
+  getPolls(query?: object): Observable<Poll[]> {
+    let queryString: string = "";
+    if(Object.keys(query).length !== 0) {
+      queryString = "?" + Object.keys(query)
+        .map(param => param + "=" + query[param])
+        .reduce((acc, val) => acc + val);
+    }
+    return this.http.get(this.apiUrl + "polls" + queryString)
       .map(res => res.json());
   }
 

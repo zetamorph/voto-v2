@@ -9,6 +9,8 @@ import { LoginComponent } from "./login.component";
 const routes: Routes = [
   { path: "", redirectTo: "/polls", pathMatch: "full" },
   { path: "polls/new", component: NewPollComponent },
+  { path: "polls/random", component: PollsComponent },
+  { path: "polls/latest", component: PollsComponent },
   { path: "polls/:id", component: PollDetailComponent },
   { path: "polls", component: PollsComponent },
   { path: "login", component: LoginComponent }
