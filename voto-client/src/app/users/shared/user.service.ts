@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Headers, Http, Response, RequestOptions } from "@angular/http";
-import { HttpInterceptor } from "ng-http-interceptor";
-import { User } from "./user";
+import { User } from "./user.model";
 import { Observable } from 'rxjs/Rx';
 
 import 'rxjs/add/operator/map';

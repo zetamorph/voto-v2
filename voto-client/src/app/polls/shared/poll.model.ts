@@ -1,5 +1,3 @@
-import { User } from "./user";
-
 export class Poll {
   id: number;
   title: string;

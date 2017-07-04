@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
-import { Poll } from "./poll";
-import { PollService } from "./poll.service";
+import { Poll } from "./../shared/poll.model";
+import { PollService } from "./../shared/poll.service";
 
 @Component ({
   selector: "new-poll",

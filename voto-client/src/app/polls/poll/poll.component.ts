@@ -1,30 +1,37 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, ParamMap } from "@angular/router";
+import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { Location } from "@angular/common";
-import { Poll } from "./poll";
-import { Option } from "./option";
-import { PollService } from "./poll.service";
-import { OptionService } from "./option.service";
+import { Poll } from "./../shared/poll.model";
+import { Option } from "./../shared/option.model";
+import { PollService } from "./../shared/poll.service";
 import "rxjs/add/operator/switchMap";
 
 @Component ({
-  selector: "poll-detail",
-  templateUrl: "./poll-detail.component.html"
+  selector: "poll",
+  templateUrl: "./poll.component.html"
 })
-export class PollDetailComponent implements OnInit {
+export class PollComponent implements OnInit {
   poll: Poll;  
   options: Option[];
   constructor(
     private pollService: PollService,
-    private optionService: OptionService,
+    private router: Router,
     private route: ActivatedRoute,
     private location: Location
   ) {}
 
   addOption(optionTitle) {
-    this.optionService.postOption(optionTitle, this.poll.id)
+    this.pollService.postOption(optionTitle, this.poll.id)
       .subscribe(
         option => this.options.push(option),
+        err => console.error(err)
+      )
+  }
+
+  deletePoll(pollId: number) {
+    this.pollService.deletePoll(pollId)
+      .subscribe(
+        data => this.router.navigateByUrl("/"),
         err => console.error(err)
       )
   }
@@ -40,7 +47,7 @@ export class PollDetailComponent implements OnInit {
 
     this.route.paramMap
     .switchMap((params: ParamMap) => 
-      this.optionService.getOptions(+params.get("id")))
+      this.pollService.getOptions(+params.get("id")))
         .subscribe(
           options => this.options = options,
           err => console.error(err)

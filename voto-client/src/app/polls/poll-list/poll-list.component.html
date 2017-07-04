@@ -1,17 +1,15 @@
 <div class="ui stackable two column grid">
   <div  *ngFor="let poll of polls" class="polls-item eight wide column">
     <a routerLink="/polls/{{poll.id}}">  
-      <h3>{{poll.title}}</h3>
+      <h4>{{poll.title}}</h4>
     </a>
   </div>
 </div>
 <sm-menu class="pagination two item">
-  <a sm-item class="disabled">
+  <a sm-item (click)="goToPreviousPage()" [ngClass]="{'active': !firstPage(), 'disabled': firstPage()}">
     <i class="angle double left icon"></i>Previous
   </a>
-  <a sm-item>
+  <a sm-item (click)="goToNextPage()" [ngClass]="{'active': !lastPage, 'disabled': lastPage}">
     Next<i class="angle double right icon"></i>
   </a>
-
-  
 </sm-menu>

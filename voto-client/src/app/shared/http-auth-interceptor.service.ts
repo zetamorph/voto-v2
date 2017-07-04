@@ -20,9 +20,12 @@ export class HttpAuthInterceptorService {
   }
 
   private requestInterceptor = (data: any[], method: string): any[] => {
-    const AuthToken = JSON.parse(localStorage.getItem("jwt")).token;
-    const headers = getHttpHeadersOrInit(data, method);
-    headers.append("Authorization", AuthToken);
+    if(localStorage.getItem("jwt")) {
+      const AuthToken = JSON.parse(localStorage.getItem("jwt")).token;
+      const headers = getHttpHeadersOrInit(data, method);
+      headers.append("Authorization", AuthToken);
+      return data;
+    }
     return data;
   }
 

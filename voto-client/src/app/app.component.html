@@ -1,20 +1,14 @@
-<sm-menu class="huge borderless">
-  <a sm-item icon="sidebar big" (click)="invertedSidebar.show({transition: 'overlay'})"></a>
-  <a sm-item routerLink="/">
-    <h1>Voto</h1>
-  </a>
-</sm-menu>
-<sm-sidebar class="left vertical inverted sidebar labeled icon menu" #invertedSidebar>        
-  <a class="item" (click)="invertedSidebar.hide()">
+<sm-sidebar class="left vertical inverted sidebar labeled icon menu" #sidebar>        
+  <a class="item" (click)="sidebar.hide()">
     <i class="remove icon"></i>Close
   </a>
-  <a class="item" (click)="goTo({sort: 'popular'})">
+  <a class="item" [routerLink]="['/polls']" [queryParams]="{ sort: 'popular'}">
     <i class="home icon"></i>Popular
   </a>
-  <a class="item" (click)="goTo({sort: 'random'})">
+  <a class="item" [routerLink]="['/polls']" [queryParams]="{ sort: 'random'}">
     <i class="home icon"></i>Random
   </a>
-  <a class="item" (click)="goTo({sort: 'latest'})">
+  <a class="item" [routerLink]="['/polls']" [queryParams]="{ sort: 'latest'}">
     <i class="block layout icon"></i>Latest
   </a>
   <a class="item" routerLink="/polls/new">
@@ -27,9 +21,17 @@
     <i class="smile icon"></i>Login
   </a>
 </sm-sidebar>
-<div class="pushable">
+<div class="pusher">
+  <sm-menu class="huge borderless">
+    <a sm-item icon="sidebar big" (click)="sidebar.show({transition: 'overlay'})"></a>
+    <a sm-item routerLink="/">
+      <h1>Voto</h1>
+    </a>
+  </sm-menu>
+
   <router-outlet></router-outlet>
 </div>
+
 
   
 

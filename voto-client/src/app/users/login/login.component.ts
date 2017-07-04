@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FacebookService, LoginResponse } from "ngx-facebook";
 
-import { UserService } from "./user.service";
+import { UserService } from "./../shared/user.service";
 
 @Component({
   selector: 'login',
@@ -19,9 +19,12 @@ export class LoginComponent {
     });
   }
 
+  isLoggedIn: boolean = false;
+
   status: any;
 
   fbLogin() {
+
     this.facebookService.login()
     .then((res: LoginResponse) => {
       return this.apiLogin(res.authResponse.accessToken);

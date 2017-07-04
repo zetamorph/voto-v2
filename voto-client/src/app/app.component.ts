@@ -23,8 +23,4 @@ export class AppComponent {
     });
   }
 
-  goTo(query: object): void {
-    this.router.navigate(["/polls"], { queryParams: query });
-  }
-
 }

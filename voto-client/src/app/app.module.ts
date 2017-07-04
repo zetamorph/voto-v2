@@ -10,26 +10,23 @@ import { NgSemanticModule } from "ng-semantic/ng-semantic";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AppComponent } from "./app.component";
-import { PollsComponent } from "./polls.component";
-import { PollDetailComponent } from "./poll-detail.component";
-import { ChartComponent } from "./chart.component";
-import { NewPollComponent } from "./new-poll.component";
-import { LoginComponent } from "./login.component";
+import { PollListComponent } from "./polls/poll-list/poll-list.component";
+import { PollComponent } from "./polls/poll/poll.component";
+import { NewPollComponent } from "./polls/new-poll/new-poll.component";
+import { LoginComponent } from "./users/login/login.component";
 
-import { PollService } from "./poll.service";
-import { OptionService } from "./option.service";
-import { UserService } from "./user.service";
+import { PollService } from "./polls/shared/poll.service";
+import { UserService } from "./users/shared/user.service";
 
-import { HttpAuthInterceptorService } from "./http-interceptor.service";
+import { HttpAuthInterceptorService } from "./shared/http-auth-interceptor.service";
 
 @NgModule({
   declarations: [
     AppComponent,
-    PollsComponent,
-    PollDetailComponent,
+    PollListComponent,
+    PollComponent,
     NewPollComponent,
-    LoginComponent,
-    ChartComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +42,6 @@ import { HttpAuthInterceptorService } from "./http-interceptor.service";
   providers: [ 
     PollService, 
     UserService,
-    OptionService,
     HttpAuthInterceptorService
   ],
   bootstrap: [ AppComponent ],
