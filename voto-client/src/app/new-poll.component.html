@@ -1,7 +1,9 @@
 <div>
+  <h1>Create a new poll!</h1>
   <label>
-    Title
-    <input #newPoll />
+    Choose a title
   </label>
+  <input #newPoll />
+  
   <button (click)="addPoll(newPoll.value); newPoll.value=''">Create Poll</button>
 </div>
