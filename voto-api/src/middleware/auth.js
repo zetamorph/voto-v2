@@ -38,7 +38,7 @@ passport.use(new FacebookTokenStrategy(
 
 passport.use(new JWTStrategy({
   secretOrKey: config.get("authConfig.jwt.secret"),
-  jwtFromRequest: ExtractJWT.fromAuthHeader(),
+  jwtFromRequest: ExtractJWT.fromBodyField(),
 }, (jwtPayload, done) => {
   db.user.find({ where: { id: jwtPayload.id}})
   .then((user) => {
