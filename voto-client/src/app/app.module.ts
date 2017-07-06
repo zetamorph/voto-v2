@@ -3,7 +3,6 @@ import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
 import { AppRoutingModule } from "./app-routing.module";
-import { HttpInterceptorModule } from "ng-http-interceptor";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FacebookModule } from "ngx-facebook";
 import { NgSemanticModule } from "ng-semantic/ng-semantic";
@@ -15,12 +14,7 @@ import { PollComponent } from "./polls/poll/poll.component";
 import { NewPollComponent } from "./polls/new-poll/new-poll.component";
 import { LoginComponent } from "./users/login/login.component";
 
-import { GlobalErrorHandler } from "./shared/global-error-handler";
-
-import { PollService } from "./polls/shared/poll.service";
-import { UserService } from "./users/shared/user.service";
-
-import { HttpAuthInterceptorService } from "./shared/http-auth-interceptor.service";
+import { ApiService, PollService, OptionService, VoteService, UserService, TokenService } from "./shared";
 
 @NgModule({
   declarations: [
@@ -36,19 +30,17 @@ import { HttpAuthInterceptorService } from "./shared/http-auth-interceptor.servi
     HttpModule,
     FlexLayoutModule,
     NgSemanticModule,
-    HttpInterceptorModule,
     FacebookModule.forRoot(),
     AppRoutingModule,
     BrowserAnimationsModule
   ],
   providers: [ 
-    PollService, 
+    ApiService,
+    PollService,
+    OptionService,
+    VoteService,
     UserService,
-    HttpAuthInterceptorService,
-    {
-      provide: ErrorHandler,
-      useClass: GlobalErrorHandler
-    }
+    TokenService 
   ],
   bootstrap: [ AppComponent ],
 })

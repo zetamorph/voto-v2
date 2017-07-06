@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { URLSearchParams } from "@angular/http";
+import { Params } from "@angular/router";
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -13,16 +14,17 @@ export class PollService {
     private apiService: ApiService
   ) {}
 
-  getPolls(query?: Query): Observable<Poll[]> {
-    let queryString: string = "";
-    if(Object.keys(query).length !== 0) {
-      queryString = "?" + Object.keys(query)
-        .map(param => param + "=" + query[param] + "&")
-        .reduce((acc, val) => acc + val);
-    }
-    queryString = queryString.slice(0, queryString.length - 1);
-    return this.http.get(this.apiUrl + "polls" + queryString)
-      .map(res => res.json());
+  getPolls(query?: Params): Observable<Poll[]> {
+    
+    let params: URLSearchParams = new URLSearchParams();
+    Object.keys(query).forEach((key) => {
+      params.set(key, query[key]);
+    });
+
+    console.log(params.toString());
+  
+    return this.apiService.get("polls", params);
+
   }
 
   getPoll(pollId: number): Observable<Poll> {
@@ -33,8 +35,8 @@ export class PollService {
     return this.apiService.post("polls", {title: pollTitle});
   }
 
-  delete(pollId: number) {
-    return this.apiService.delete(`${this.apiUrl}polls/${pollId}`)
+  deletePoll(pollId: number) {
+    return this.apiService.delete(`polls/${pollId}`)
   }
 
 }

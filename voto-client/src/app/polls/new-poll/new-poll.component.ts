@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
-import { Poll } from "./../shared/poll.model";
-import { PollService } from "./../shared/poll.service";
+import { Poll } from "./../../shared/models";
+import { PollService } from "./../../shared/services";
 
 @Component ({
   selector: "new-poll",
@@ -17,7 +17,8 @@ export class NewPollComponent {
   addPoll(title: string) {
     this.pollService.postPoll(title)
     .subscribe(
-      newPoll => this.router.navigateByUrl(`/polls/${newPoll.id}`)
+      newPoll => this.router.navigateByUrl(`/polls/${newPoll.id}`),
+      error => {}
     ); 
   }
   

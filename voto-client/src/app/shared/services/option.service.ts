@@ -17,6 +17,6 @@ export class OptionService {
   }
 
   postOption(optionTitle: string, pollId: number): Observable<Option> {
-    return this.apiService.post(optionTitle, {title: optionTitle});
+    return this.apiService.post(`polls/${pollId}/options`, {title: optionTitle});
   }
 }

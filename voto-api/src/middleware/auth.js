@@ -13,6 +13,7 @@ passport.use(new FacebookTokenStrategy(
     profileFields: ["id", "displayName", "email"]
   },
   function(accessToken, refreshToken, profile, cb) {
+    console.log(accessToken);
     db.user.find({ where: { facebookID: profile.id } })
     .then((user) => {
       if (user) {
@@ -38,7 +39,7 @@ passport.use(new FacebookTokenStrategy(
 
 passport.use(new JWTStrategy({
   secretOrKey: config.get("authConfig.jwt.secret"),
-  jwtFromRequest: ExtractJWT.fromBodyField(),
+  jwtFromRequest: ExtractJWT.fromAuthHeader(),
 }, (jwtPayload, done) => {
   db.user.find({ where: { id: jwtPayload.id}})
   .then((user) => {

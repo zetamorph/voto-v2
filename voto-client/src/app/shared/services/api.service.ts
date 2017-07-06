@@ -15,30 +15,37 @@ export class ApiService {
     private tokenService: TokenService
   ) {}
 
-  private setHeaders(): Headers {
-    const headers = {
+  private setHeaders(customHeaders: Object = null): Headers {
+    
+    let headers = {
       "Content-Type": "application/json",
       "Accept": "application/json"
     };
+
+    if(customHeaders !== null) {
+      headers = Object.assign({}, headers, customHeaders);
+    }
 
     /* If a token is set, append it to the request */
     if(this.tokenService.getToken()) {
       headers["Authorization"] = this.tokenService.getToken();
     }
+    
+    Object.keys(headers).forEach((key) => console.log(key, headers[key]));
     return new Headers(headers);
   }
 
   get(resource: string, params?: URLSearchParams): Observable<any> {
-    return this.http.get(`${environment.apiUrl}${resource}`, { headers: this.setHeaders(), search: params })
+    return this.http.get(`${environment.apiUrl}${resource}`, { headers: this.setHeaders(), params: params })
     .catch(this.handleError)
     .map((res: Response) => res.json());
   }
 
-  post(resource: string, body: Object): Observable<any> {
+  post(resource: string, body: Object, customHeaders?: Object): Observable<any> {
     return this.http.post(
       `${environment.apiUrl}${resource}`, 
       JSON.stringify(body), 
-      { headers: this.setHeaders() }
+      { headers: this.setHeaders(customHeaders) }
     )
     .catch(this.handleError)
     .map((res: Response) => res.json());

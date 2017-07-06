@@ -3,8 +3,8 @@ import { ActivatedRoute, Params } from "@angular/router";
 import { Observable } from "Rxjs";
 import 'rxjs/add/operator/toPromise';
 
-import { Poll } from "./../shared/poll.model";
-import { PollService, Query } from "./../shared/poll.service";
+import { Poll } from "./../../shared/models";
+import { PollService } from "./../../shared/services";
 
 import { SemanticItemComponent } from "ng-semantic/ng-semantic";
 
@@ -26,14 +26,14 @@ export class PollListComponent implements OnInit {
 
   pollsPerPage: number = 2;
   currentPage: number = 0;
-  currentQuery: Query;
+  currentQuery: Params;
   firstPage() {
     return this.currentPage === 0;
   }
   lastPage: boolean = false;
   polls: Poll[];
   
-  getPolls(query?: Query) {
+  getPolls(query?: Params) {
     
     let offset: number = this.currentPage * this.pollsPerPage;
     /* Since query is frozen, we have to 

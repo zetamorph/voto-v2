@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FacebookService, LoginResponse } from "ngx-facebook";
 
-import { UserService } from "./../shared/user.service";
+import { UserService } from "./../../shared/services";
 
 @Component({
   selector: 'login',
@@ -49,7 +49,7 @@ export class LoginComponent {
   }
 
   apiLogout(): void {
-    this.userService.signOut();
+    this.userService.signout();
   }
 
 }
