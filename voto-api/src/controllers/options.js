@@ -8,12 +8,20 @@ module.exports = {
 
     db.option.findAll({
       where: { pollId: pollId },
-      include: db.vote
+      attributes: { 
+        include: [[db.sequelize.fn("COUNT", "votes.id"), "voteCount"]],
+     },
+      include: {
+        model: db.vote,
+        attributes: []
+      },
+      group: [db.sequelize.col("option.id")]
     })
     .then((options) => {
       res.status(200).json(options);
     })
     .catch((err) => {
+      console.log(err);
       res.status(500).json({ err: "Internal Server Error" });
     });
   },
