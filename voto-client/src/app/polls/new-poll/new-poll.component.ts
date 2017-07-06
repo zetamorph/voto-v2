@@ -16,12 +16,9 @@ export class NewPollComponent {
 
   addPoll(title: string) {
     this.pollService.postPoll(title)
-      .subscribe(
-        (newPoll) => {
-          this.router.navigateByUrl(`/polls/${newPoll.id}`);
-        },
-        err => console.error(err)
-      );
+    .subscribe(
+      newPoll => this.router.navigateByUrl(`/polls/${newPoll.id}`)
+    ); 
   }
   
 }

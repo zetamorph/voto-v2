@@ -1,10 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { Location } from "@angular/common";
+import "rxjs/add/operator/switchMap";
+
 import { Poll } from "./../shared/poll.model";
 import { Option } from "./../shared/option.model";
 import { PollService } from "./../shared/poll.service";
-import "rxjs/add/operator/switchMap";
+import { AuthenticationError } from "./../../shared/authentication-error";
 
 @Component ({
   selector: "poll",
@@ -21,11 +23,15 @@ export class PollComponent implements OnInit {
   ) {}
 
   addOption(optionTitle) {
+    throw new AuthenticationError();
+    
+    /*
     this.pollService.postOption(optionTitle, this.poll.id)
       .subscribe(
         option => this.options.push(option),
         err => console.error(err)
       )
+    */
   }
 
   deletePoll(pollId: number) {
@@ -44,7 +50,7 @@ export class PollComponent implements OnInit {
           poll => this.poll = poll,
           err => console.error(err)
         );
-
+        
     this.route.paramMap
     .switchMap((params: ParamMap) => 
       this.pollService.getOptions(+params.get("id")))

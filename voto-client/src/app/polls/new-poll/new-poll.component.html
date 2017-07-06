@@ -1,9 +1,15 @@
-<div>
-  <h1>Create a new poll!</h1>
-  <label>
-    Choose a title
-  </label>
-  <input #newPoll />
-  
-  <button (click)="addPoll(newPoll.value); newPoll.value=''">Create Poll</button>
+<div class="fullheight">
+  <div class="ui masthead vertical segment">
+    <h1 class="ui huge center aligned header voto-page-header">Create a new poll!</h1>
+  </div>
+  <div class="main ui container">
+    <div class="ui top attached segment">
+      <label class="ui label">
+        Choose a title
+      </label>
+      <input #newPoll />
+      
+      <button (click)="addPoll(newPoll.value); newPoll.value='';">Create Poll</button>
+    </div>
+  </div>
 </div>

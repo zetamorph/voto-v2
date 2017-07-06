@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule, ErrorHandler } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
@@ -14,6 +14,8 @@ import { PollListComponent } from "./polls/poll-list/poll-list.component";
 import { PollComponent } from "./polls/poll/poll.component";
 import { NewPollComponent } from "./polls/new-poll/new-poll.component";
 import { LoginComponent } from "./users/login/login.component";
+
+import { GlobalErrorHandler } from "./shared/global-error-handler";
 
 import { PollService } from "./polls/shared/poll.service";
 import { UserService } from "./users/shared/user.service";
@@ -42,7 +44,11 @@ import { HttpAuthInterceptorService } from "./shared/http-auth-interceptor.servi
   providers: [ 
     PollService, 
     UserService,
-    HttpAuthInterceptorService
+    HttpAuthInterceptorService,
+    {
+      provide: ErrorHandler,
+      useClass: GlobalErrorHandler
+    }
   ],
   bootstrap: [ AppComponent ],
 })

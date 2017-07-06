@@ -1,12 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router, NavigationEnd } from "@angular/router";
 
-import { SemanticSidebarComponent } from "ng-semantic/ng-semantic";
+import { SemanticSidebarComponent, SemanticMessageComponent } from "ng-semantic/ng-semantic";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
 
