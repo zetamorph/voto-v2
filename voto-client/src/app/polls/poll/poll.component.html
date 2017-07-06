@@ -1,9 +1,7 @@
 <div *ngIf="poll">
   <h1>{{poll.title}}</h1>
-  <p> chart here </p>
-  <ul>
-    <li *ngFor="let option of options">{{option.title}}</li>
-  </ul>
+  <poll-option-chart [options]="options"> chart here </poll-option-chart>
+  <poll-option-list [options]="options" (pollChange)="populate();"></poll-option-list>
   <label>New Option: <input #newOption /></label>
   <button (click)="addOption(newOption.value); newOption.value = '';"> 
     Add Option

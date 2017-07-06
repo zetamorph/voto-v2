@@ -21,6 +21,33 @@ export class PollComponent implements OnInit {
     private location: Location
   ) {}
 
+  pollChanged: boolean = false;
+
+  populate() {
+    this.getPoll();
+    this.getOptions();
+  }
+
+  getPoll() {
+    this.route.paramMap
+    .switchMap((params: ParamMap) => 
+      this.pollService.getPoll(+params.get("id")))
+        .subscribe(
+          poll => this.poll = poll,
+          err => console.error(err)
+        );
+  }
+
+  getOptions() {
+    this.route.paramMap
+    .switchMap((params: ParamMap) => 
+      this.optionService.getOptions(+params.get("id")))
+        .subscribe(
+          options => this.options = options,
+          err => console.error(err)
+        );
+  }
+
   addOption(optionTitle) {
     
     this.optionService.postOption(optionTitle, this.poll.id)
@@ -39,20 +66,7 @@ export class PollComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.paramMap
-    .switchMap((params: ParamMap) => 
-      this.pollService.getPoll(+params.get("id")))
-        .subscribe(
-          poll => this.poll = poll,
-          err => console.error(err)
-        );
-        
-    this.route.paramMap
-    .switchMap((params: ParamMap) => 
-      this.optionService.getOptions(+params.get("id")))
-        .subscribe(
-          options => this.options = options,
-          err => console.error(err)
-        );
-    }
+    this.getPoll();
+    this.getOptions();
+  }
 }

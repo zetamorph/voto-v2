@@ -1,0 +1,7 @@
+<ul>
+  <li *ngFor="let option of options">
+    <label>{{option.title}}<button (click)="voteOnOption(option.pollId, option.id)">Vote</button>
+    </label>
+
+  </li>
+</ul>

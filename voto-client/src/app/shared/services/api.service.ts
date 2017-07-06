@@ -31,7 +31,6 @@ export class ApiService {
       headers["Authorization"] = this.tokenService.getToken();
     }
     
-    Object.keys(headers).forEach((key) => console.log(key, headers[key]));
     return new Headers(headers);
   }
 
@@ -48,7 +47,6 @@ export class ApiService {
       { headers: this.setHeaders(customHeaders) }
     )
     .catch(this.handleError)
-    .map((res: Response) => res.json());
   } 
 
   delete(resource): Observable<any> {
@@ -57,7 +55,6 @@ export class ApiService {
       { headers: this.setHeaders() }
     )
     .catch(this.handleError)
-    .map((res: Response) => res.json());
   }
 
   handleError(error: any) {
