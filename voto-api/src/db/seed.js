@@ -57,6 +57,7 @@ module.exports = function (db, done) {
   .then(() => {
     return db.vote.bulkCreate([
       {ip: "123.123.123.123", optionId: 1},
+      {ip: "123.123.123.123", optionId: 1},
       {ip: "123.123.123.123", optionId: 2},
       {ip: "123.123.123.123", optionId: 3},
       {ip: "123.123.123.123", optionId: 4},

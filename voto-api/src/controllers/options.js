@@ -6,22 +6,22 @@ module.exports = {
   getOptions(req, res) {
     const pollId = parseInt(req.params.pollId);
 
-    db.option.findAll({
-      where: { pollId: pollId },
-      attributes: { 
-        include: [[db.sequelize.fn("COUNT", "votes.id"), "voteCount"]],
-     },
-      include: {
-        model: db.vote,
-        attributes: []
-      },
-      group: [db.sequelize.col("option.id")]
-    })
+    db.sequelize.query(`
+      SELECT options.*, 
+      (
+        SELECT COUNT(*) 
+        FROM votes WHERE votes.optionId = options.id
+      ) 
+      AS voteCount
+      FROM options LEFT JOIN votes 
+      ON options.id = votes.optionId  
+      WHERE options.pollId = ${pollId} 
+      GROUP BY options.id`
+    )
     .then((options) => {
-      res.status(200).json(options);
+      res.status(200).json(options[0]);
     })
     .catch((err) => {
-      console.log(err);
       res.status(500).json({ err: "Internal Server Error" });
     });
   },
