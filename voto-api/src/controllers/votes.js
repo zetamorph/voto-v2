@@ -40,7 +40,7 @@ module.exports = {
     })
     .spread((vote, created) => {
       if (created) {
-        res.status(201).end();
+        res.status(201).json({ success: "true" });
       } else {
         res.status(403).json({ err: "User already voted on this poll" });
       }

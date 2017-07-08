@@ -17,6 +17,7 @@ module.exports = {
     if(query.sort) {
       switch (query.sort) {
         case "popular": {
+          //TODO find polls with the most votes and return them
           console.log("popular");
         }
         case "random": {
@@ -88,7 +89,7 @@ module.exports = {
       });
     })
     .then((rowsDeleted) => {
-      res.status(204).end();
+      res.status(204).json({ success: "true" });
     })
     .catch((err) => {
       res.status(500).json({ err: "Internal Server Error" });

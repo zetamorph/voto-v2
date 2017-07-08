@@ -21,7 +21,7 @@ module.exports = {
         return user.destroy();
       })
       .then((rowsDeleted) => {
-        res.status(204).end();
+        res.status(204).json({ success: "true" });
       })
       .catch((err) => {
         res.status(500).json({ err: "Internal Server Error" })
