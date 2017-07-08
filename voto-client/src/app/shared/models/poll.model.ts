@@ -1,7 +1,7 @@
 export class Poll {
-  id: number;
-  title: string;
-  createdAt: string;
-  updatedAt: string;
-  userId: number;
+  constructor(
+    public id: number,
+    public title: string,
+    public userId: number
+  ) {}
 }

@@ -21,20 +21,19 @@
     <i class="smile icon"></i>Login
   </a>
 </sm-sidebar>
-<div class="pusher">
-  <sm-menu class="huge borderless">
+<div class="pusher"> 
+  <sm-menu class="huge borderless menu">
     <a sm-item icon="sidebar big" (click)="sidebar.show({transition: 'overlay'})"></a>
     <a sm-item routerLink="/">
       <h1>Voto</h1>
     </a>
   </sm-menu>
-  <sm-message icon="warning">
-    
-  </sm-message>
   <div class="ui container">
+    <sm-message icon="warning" ><h1>test</h1></sm-message>
     <router-outlet></router-outlet>
   </div>
 </div>
+
 
 
   

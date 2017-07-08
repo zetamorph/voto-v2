@@ -36,8 +36,8 @@ export class ApiService {
 
   get(resource: string, params?: URLSearchParams): Observable<any> {
     return this.http.get(`${environment.apiUrl}${resource}`, { headers: this.setHeaders(), params: params })
-    .catch(this.handleError)
-    .map((res: Response) => res.json());
+    .map((res: Response) => res.json())
+    .catch(this.handleError);
   }
 
   post(resource: string, body: Object, customHeaders?: Object): Observable<any> {
@@ -46,7 +46,8 @@ export class ApiService {
       JSON.stringify(body), 
       { headers: this.setHeaders(customHeaders) }
     )
-    .catch(this.handleError)
+    .map((res: Response) => res.json())
+    .catch(this.handleError);
   } 
 
   delete(resource): Observable<any> {
@@ -54,7 +55,8 @@ export class ApiService {
       `${environment.apiUrl}${resource}`,
       { headers: this.setHeaders() }
     )
-    .catch(this.handleError)
+    .map((res: Response) => res.json())
+    .catch(this.handleError);
   }
 
   handleError(error: any) {

@@ -1,4 +1,8 @@
 export class Option {
-  title: string;
-  voteCount: number;
+  constructor(
+    public id: number,
+    public title: string,
+    public userId: number,
+    public voteCount: number = 0,
+  ) {}
 }

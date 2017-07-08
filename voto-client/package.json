@@ -27,6 +27,8 @@
     "angular2-highcharts": "^0.5.5",
     "chart.js": "^2.6.0",
     "core-js": "^2.4.1",
+    "jQuery": "^1.7.4",
+    "jquery": "^3.2.1",
     "ng-http-interceptor": "^3.1.1",
     "ng-semantic": "https://github.com/vladotesanovic/ngSemantic/tarball/master",
     "ng2-charts": "^1.6.0",

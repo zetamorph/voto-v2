@@ -32,24 +32,12 @@ export class LoginComponent {
     .catch(console.log);
   }
 
-  fbLogout() {
-    this.facebookService.logout()
-    .then(() => {
-      this.apiLogout();
-    })
-    .catch(console.error);
-  }
-
   apiLogin(token: string) {
-    this.userService.signup(token)
-      .subscribe(
-        success => this.status = status,
-        err => console.log(err)
-      )
+    this.userService.signup(token);
   }
 
-  apiLogout(): void {
-    this.userService.signout();
+  logout(): void {
+    this.userService.logout();
   }
 
 }

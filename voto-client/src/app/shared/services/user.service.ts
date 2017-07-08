@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 
 import { ApiService, TokenService } from "./";
@@ -13,13 +14,14 @@ export class UserService {
     private tokenService: TokenService
   ) {}
 
-  signup(fbToken: string): Observable<Response> {
-    return this.apiService.post("users/", {}, { "access_token": fbToken })
-      .map(data => this.tokenService.setToken(data.token))
-      .catch((error: any) => Observable.throw(error.json().error));
+  signup(fbToken: string) {
+    this.apiService.post("users/", {}, { "access_token": fbToken })
+    .subscribe(
+      data => this.tokenService.setToken(data.token)
+    );
   }
 
-  signout(): void {
+  logout(): void {
     this.tokenService.deleteToken();
   }
 

@@ -3,14 +3,14 @@ import { Injectable } from "@angular/core";
 @Injectable()
 export class TokenService {
   getToken(): string {
-    return window.localStorage.jwt;
+    return window.localStorage.getItem("jwt");
   }
 
   setToken(token: string): void {
-    window.localStorage.jwt = token;
+    window.localStorage.setItem("jwt", token);
   }
 
   deleteToken(): void {
-    window.localStorage.deleteItem("jwt");
+    window.localStorage.removeItem("jwt");
   }
 }

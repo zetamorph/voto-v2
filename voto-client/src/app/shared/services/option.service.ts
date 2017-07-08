@@ -13,10 +13,10 @@ export class OptionService {
   ) {}
 
   getOptions(pollId: number): Observable<Option[]> {
-    return this.apiService.get(`polls/${pollId}/options`);
+    return this.apiService.get(`polls/${pollId}/options`)
   }
 
   postOption(optionTitle: string, pollId: number): Observable<Option> {
-    return this.apiService.post(`polls/${pollId}/options`, {title: optionTitle});
+    return this.apiService.post(`polls/${pollId}/options`, {title: optionTitle})
   }
 }

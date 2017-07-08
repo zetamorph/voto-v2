@@ -24,7 +24,7 @@ export class PollListComponent implements OnInit {
   @ViewChild("nextPageButton")
   nextPageButton: SemanticItemComponent;
 
-  pollsPerPage: number = 2;
+  pollsPerPage: number = 10;
   currentPage: number = 0;
   currentQuery: Params;
   firstPage() {
@@ -48,6 +48,7 @@ export class PollListComponent implements OnInit {
       polls => this.polls = polls,
       err => console.error(err)
     );
+    
     //check if more polls exist
     query.offset = offset + this.pollsPerPage;
     query.limit = 1;

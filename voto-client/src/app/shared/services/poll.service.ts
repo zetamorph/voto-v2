@@ -15,27 +15,24 @@ export class PollService {
   ) {}
 
   getPolls(query?: Params): Observable<Poll[]> {
-    
     let params: URLSearchParams = new URLSearchParams();
-    Object.keys(query).forEach((key) => {
-      params.set(key, query[key]);
-    });
-
-    console.log(params.toString());
-  
-    return this.apiService.get("polls", params);
-
+    if(query !== undefined) {
+      Object.keys(query).forEach((key) => {
+        params.set(key, query[key]);
+      });
+    }
+    return this.apiService.get("polls", params)
   }
 
   getPoll(pollId: number): Observable<Poll> {
-    return this.apiService.get(`polls/${pollId}`);
+    return this.apiService.get(`polls/${pollId}`)
   }
   
   postPoll(pollTitle: string): Observable<Poll> {
-    return this.apiService.post("polls", {title: pollTitle});
+    return this.apiService.post("polls", {title: pollTitle})
   }
 
-  deletePoll(pollId: number) {
+  deletePoll(pollId: number): Observable<any> {
     return this.apiService.delete(`polls/${pollId}`)
   }
 
