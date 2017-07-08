@@ -4,11 +4,12 @@ import { Location } from "@angular/common";
 import "rxjs/add/operator/switchMap";
 
 import { Poll, Option } from "./../../shared/models";
-import { PollService, OptionService } from "./../../shared/services";
+import { PollService, OptionService, UserService } from "./../../shared/services";
 
 @Component ({
   selector: "poll",
-  templateUrl: "./poll.component.html"
+  templateUrl: "./poll.component.html",
+  styleUrls: ["./poll.component.scss"]
 })
 export class PollComponent implements OnInit {
   poll: Poll;  
@@ -16,6 +17,7 @@ export class PollComponent implements OnInit {
   constructor(
     private pollService: PollService,
     private optionService: OptionService,
+    private userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
     private location: Location

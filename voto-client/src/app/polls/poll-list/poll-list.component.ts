@@ -27,9 +27,11 @@ export class PollListComponent implements OnInit {
   pollsPerPage: number = 10;
   currentPage: number = 0;
   currentQuery: Params;
+
   firstPage() {
     return this.currentPage === 0;
   }
+
   lastPage: boolean = false;
   polls: Poll[];
   

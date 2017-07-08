@@ -1,11 +1,29 @@
-<div class="ui stackable two column grid">
-  <div  *ngFor="let poll of polls" class="polls-item eight wide column">
-    <a routerLink="/polls/{{poll.id}}">  
-      <h4>{{poll.title}}</h4>
-    </a>
+<div class="ui stackable two column grid cards">
+  <div  *ngFor="let poll of polls" class="poll-list-item column">
+    <div class="ui card">
+      <div class="content">
+
+        <a class="ui center aligned huge header" routerLink="/polls/{{poll.id}}">  
+          {{poll.title}}
+        </a>
+      </div>
+      <div class="ui image">
+        <img src="http://placehold.it/600x300">
+      </div>
+      <div class="extra content">
+        <span>
+          <i class="pie chart icon"></i>
+          10 Votes
+        </span>
+        <span class="right floated">
+          <i class="user icon"></i>
+          johannes
+        </span>
+      </div>
+    </div>
   </div>
 </div>
-<sm-menu class="pagination two item">
+<sm-menu class="pagination two item poll-list-pagination">
   <a sm-item (click)="goToPreviousPage()" [ngClass]="{'active': !firstPage(), 'disabled': firstPage()}">
     <i class="angle double left icon"></i>Previous
   </a>

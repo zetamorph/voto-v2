@@ -25,11 +25,18 @@
   <sm-menu class="huge borderless menu">
     <a sm-item icon="sidebar big" (click)="sidebar.show({transition: 'overlay'})"></a>
     <a sm-item routerLink="/">
-      <h1>Voto</h1>
+      <h1 class="voto-logo ui huge header">Voto</h1>
     </a>
   </sm-menu>
   <div class="ui container">
-    <sm-message icon="warning" ><h1>test</h1></sm-message>
+    <div class="ui hidden message flash">
+      <i class="close icon"></i>
+      <div class="content">
+        <div class="header">Global Error
+        </div>
+        <p>{{error}}</p>
+      </div>
+  </div>
     <router-outlet></router-outlet>
   </div>
 </div>

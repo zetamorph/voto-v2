@@ -1,5 +1,30 @@
-/*@import "~normalize.css/normalize.css"; */
+.voto-logo.ui.huge.header {
+  font-family: "Pacifico";
+  font-size: 3rem;
+}
 
 .masthead.segment {
   padding: 5em;
+}
+
+div.ui.menu.poll-list-pagination {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.poll-list-pagination .item {
+  flex:1;
+}
+
+@media(max-width: 960px) {
+  .ui.menu.poll-list-pagination {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+.ui.container {
+  padding-top: 2rem;
 }

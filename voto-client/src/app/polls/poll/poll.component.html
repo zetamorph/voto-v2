@@ -1,15 +1,12 @@
 <div *ngIf="poll">
-  <h1>{{poll.title}}</h1>
-  <div *ngIf="options">
-    <poll-option-chart [options]="options"> chart here </poll-option-chart>
-    <poll-option-list [options]="options" (pollChange)="populate();"></poll-option-list>
+  <h1 class="ui center aligned header voto-page-header">{{poll.title}}</h1>
+  <div *ngIf="options" class="ui stackable two column grid">
+    <poll-option-chart class="column" [options]="options"> chart here </poll-option-chart>
+    <poll-option-list class="poll-option-list column" [options]="options" (pollChange)="populate();"></poll-option-list>
   </div>
-  <label>New Option: <input #newOption /></label>
-  <button (click)="addOption(newOption.value); newOption.value = '';"> 
-    Add Option
-  </button>
+  
   <button (click)="deletePoll(poll.id)"> 
-    Delete Poll
-  </button>
-      
+          Delete Poll
+      </button>
 </div>
+    

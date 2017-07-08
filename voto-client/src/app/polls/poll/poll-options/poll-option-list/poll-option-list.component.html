@@ -1,7 +1,31 @@
-<ul>
-  <li *ngFor="let option of options">
-    <label>{{option.title}}<button (click)="voteOnOption(option.pollId, option.id)">Vote</button>
-    </label>
-
-  </li>
-</ul>
+<div class="ui list">
+  <div class="ui item two column grid" *ngFor="let option of options">
+    <div class="row ui segment">
+      <div class="column">
+        <div class="header">{{option.title}}</div>
+        {{ option.voteCount }} voted for this
+      </div>
+      <div class="column button-column">
+        <button class="ui button positive" (click)="voteOnOption(option.pollId, option.id)">
+          <i class="pie chart icon"></i>
+          Vote
+        </button>
+      </div>
+    </div>
+    
+  </div>
+  <div class="ui item two column grid">
+    <div class="row ui segment">
+      <div class="column">
+        <div class="header">New Option</div>
+        <input class="ui input" #newOption placeholder="Enter you option" />
+      </div>
+      <div class="column button-column">
+        <button class="ui button olive" (click)="addOption(newOption.value); newOption.value = '';">
+          <i class="add circle icon"></i>
+          Add
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

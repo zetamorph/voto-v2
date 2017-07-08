@@ -5,7 +5,7 @@ import { Option, VoteService } from "./../../../../shared";
 @Component({
   selector: "poll-option-list",
   templateUrl: "./poll-option-list.component.html",
-  styleUrls: ["./poll-option-list.component.scss"]
+  styleUrls: ["poll-option-list.component.scss"]
 })
 export class PollOptionListComponent {
   constructor(
