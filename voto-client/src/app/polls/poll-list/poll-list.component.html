@@ -13,7 +13,7 @@
       <div class="extra content">
         <span>
           <i class="pie chart icon"></i>
-          {{ poll.totalVotes }} Votes
+          {{ poll.totalVotes }} Vote<span *ngIf="poll.totalVotes > 1">s</span>
         </span>
         <span class="right floated">
           <i class="user icon"></i>

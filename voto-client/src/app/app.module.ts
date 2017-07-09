@@ -16,6 +16,7 @@ import { PollOptionListComponent } from "./polls/poll/poll-options/poll-option-l
 import { PollOptionChartComponent } from "./polls/poll/poll-options/poll-option-chart/poll-option-chart.component";
 import { NewPollComponent } from "./polls/new-poll/new-poll.component";
 import { LoginComponent } from "./users/login/login.component";
+import { ProfileComponent } from './users/profile/profile.component';
 
 import { ApiService, PollService, OptionService, VoteService, UserService, TokenService } from "./shared";
 
@@ -27,7 +28,8 @@ import { ApiService, PollService, OptionService, VoteService, UserService, Token
     PollOptionChartComponent,
     PollOptionListComponent,
     NewPollComponent,
-    LoginComponent
+    LoginComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

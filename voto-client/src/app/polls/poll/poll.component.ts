@@ -3,7 +3,7 @@ import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { Location } from "@angular/common";
 import "rxjs/add/operator/switchMap";
 
-import { Poll, Option } from "./../../shared/models";
+import { Poll, Option, User } from "./../../shared/models";
 import { PollService, OptionService, UserService } from "./../../shared/services";
 
 @Component ({
@@ -24,6 +24,11 @@ export class PollComponent implements OnInit {
   ) {}
 
   pollChanged: boolean = false;
+  currentUser: User;
+
+  loggedIn(): boolean {
+    return Object.keys(this.currentUser).length !== 0;
+  }
 
   populate() {
     this.getPoll();
@@ -61,5 +66,12 @@ export class PollComponent implements OnInit {
   ngOnInit(): void {
     this.getPoll();
     this.getOptions();
+
+    this.userService.currentUser.subscribe(
+      (user: User) => {
+        this.currentUser = user;
+      }
+    );
+
   }
 }

@@ -31,8 +31,4 @@ export class LoginComponent {
     this.userService.login(token);
   }
 
-  logout(): void {
-    this.userService.logout();
-  }
-
 }

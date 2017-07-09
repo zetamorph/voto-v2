@@ -3,8 +3,8 @@ import { ActivatedRoute, Params } from "@angular/router";
 import { Observable } from "Rxjs";
 import 'rxjs/add/operator/toPromise';
 
-import { Poll } from "./../../shared/models";
-import { PollService } from "./../../shared/services";
+import { Poll, User } from "./../../shared/models";
+import { PollService, UserService } from "./../../shared/services";
 
 import { SemanticItemComponent } from "ng-semantic/ng-semantic";
 
@@ -16,6 +16,7 @@ import { SemanticItemComponent } from "ng-semantic/ng-semantic";
 export class PollListComponent implements OnInit {
   constructor(
     private pollService: PollService,
+    private userService: UserService,
     private activatedRoute: ActivatedRoute
   ) {}
 
@@ -32,6 +33,11 @@ export class PollListComponent implements OnInit {
     return this.currentPage === 0;
   }
 
+  loggedIn(): boolean {
+    return Object.keys(this.currentUser).length !== 0;
+  }
+
+  currentUser: User;
   lastPage: boolean = false;
   polls: Poll[];
   
@@ -78,6 +84,12 @@ export class PollListComponent implements OnInit {
         this.getPolls(query);
       },
       err => console.error(err)
+    );
+    
+    this.userService.currentUser.subscribe(
+      (user: User) => {
+        this.currentUser = user;
+      }
     );
   }
 

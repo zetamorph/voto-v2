@@ -29,8 +29,16 @@
   <sm-menu class="huge borderless menu">
     <a sm-item icon="sidebar big" (click)="sidebar.show({transition: 'overlay'})"></a>
     <a sm-item routerLink="/">
-      <h1 class="voto-logo ui huge header">Voto</h1>
+      <h1 class="voto-logo ui left aligned huge header">Voto</h1>
     </a>
+    <div *ngIf="loggedIn()" class="right menu">
+      <a class="ui item">
+        {{ currentUser.username }}
+      </a>
+      <a class="ui item">
+        Logout
+      </a>
+    </div>
   </sm-menu>
   <div class="ui container">
     <div class="ui hidden message flash">

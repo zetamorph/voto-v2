@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, OnInit } from "@angular/core";
+import { Component, Input, ViewChild, OnInit, OnChanges, AfterViewInit, SimpleChanges } from "@angular/core";
 import { BaseChartDirective } from "ng2-charts";
 
 import { Option } from "./../../../../shared";
@@ -7,25 +7,26 @@ import { Option } from "./../../../../shared";
   selector: "poll-option-chart",
   templateUrl: "./poll-option-chart.component.html"
 })
-export class PollOptionChartComponent implements OnInit {
+export class PollOptionChartComponent implements OnInit, AfterViewInit {
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective;
   @Input() options: Option[];
   chartWidth: string = "400";
   chartHeight: string = "400";
   chartType: string = "doughnut";
-  chartData: number[];
-  chartLabels: string[];
+  chartData: number[] = [];
+  chartLabels: string[] = [];
   
   ngOnInit() {
-    this.chartData = this.options.map(option => option.voteCount);
-    this.chartLabels = this.options.map(option => option.title);
+    this.options.forEach((el, idx, arr) => {
+      this.chartData.push(el.voteCount);
+      this.chartLabels.push(el.title); 
+    });
   }
 
-  ngOnChanges() {
-    this.chartLabels = this.options.map(option => option.title);
+  ngAfterViewInit() {
+    if(this.chart.chart) {
+      this.chart.chart.update();
+    }
   }
 
-  makeChartData() {
-    this.chartData = this.options.map(option => option.voteCount);
-  }
-  
 }

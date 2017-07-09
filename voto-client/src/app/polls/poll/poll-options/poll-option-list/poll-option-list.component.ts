@@ -14,8 +14,9 @@ export class PollOptionListComponent {
   ) {}
   @Input() options: Option[];
   @Input() pollId: number;
+  @Input() loggedIn: boolean;
   @Output() pollChange = new EventEmitter<boolean>();
-
+  
   voteOnOption(optionId: number) {
     this.voteService.vote(this.pollId, optionId)
     .subscribe(
