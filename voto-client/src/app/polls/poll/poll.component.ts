@@ -50,15 +50,6 @@ export class PollComponent implements OnInit {
         );
   }
 
-  addOption(optionTitle) {
-    
-    this.optionService.postOption(optionTitle, this.poll.id)
-      .subscribe(
-        option => this.options.push(option),
-        err => console.error(err)
-      )
-  }
-
   deletePoll(pollId: number) {
     this.pollService.deletePoll(pollId)
       .subscribe(

@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 import { FacebookService, LoginResponse } from "ngx-facebook";
 
 import { UserService } from "./../../shared/services";
 
 @Component({
-  selector: 'login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: "login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.css"]
 })
 export class LoginComponent {
   constructor(
@@ -19,12 +19,7 @@ export class LoginComponent {
     });
   }
 
-  isLoggedIn: boolean = false;
-
-  status: any;
-
   fbLogin() {
-
     this.facebookService.login()
     .then((res: LoginResponse) => {
       return this.apiLogin(res.authResponse.accessToken);
@@ -33,7 +28,7 @@ export class LoginComponent {
   }
 
   apiLogin(token: string) {
-    this.userService.signup(token);
+    this.userService.login(token);
   }
 
   logout(): void {

@@ -2,11 +2,25 @@
   <h1 class="ui center aligned header voto-page-header">{{poll.title}}</h1>
   <div *ngIf="options" class="ui stackable two column grid">
     <poll-option-chart class="column" [options]="options"> chart here </poll-option-chart>
-    <poll-option-list class="poll-option-list column" [options]="options" (pollChange)="populate();"></poll-option-list>
+    <div class="column poll-option-list">
+      <poll-option-list [options]="options" [pollId]="poll.id" (pollChange)="populate();"></poll-option-list>
+      <div class="ui list">
+        <div class="ui item two column grid delete-poll-item">
+          <div class="row ui segment">
+            <div class="column">
+              <div class="header">Delete this poll</div>
+              Can´t be undone
+            </div>
+            <div class="column button-column">
+              <button class="ui button negative">
+                <i class="remove icon"></i>
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  
-  <button (click)="deletePoll(poll.id)"> 
-          Delete Poll
-      </button>
 </div>
     

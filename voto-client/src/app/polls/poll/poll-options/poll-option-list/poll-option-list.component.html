@@ -3,10 +3,10 @@
     <div class="row ui segment">
       <div class="column">
         <div class="header">{{option.title}}</div>
-        {{ option.voteCount }} voted for this
+        {{ option.voteCount || 0 }} voted for this
       </div>
       <div class="column button-column">
-        <button class="ui button positive" (click)="voteOnOption(option.pollId, option.id)">
+        <button class="ui button positive" (click)="voteOnOption(option.id)">
           <i class="pie chart icon"></i>
           Vote
         </button>
@@ -18,12 +18,12 @@
     <div class="row ui segment">
       <div class="column">
         <div class="header">New Option</div>
-        <input class="ui input" #newOption placeholder="Enter you option" />
+        <input class="ui input" #newOption placeholder="Enter your option" />
       </div>
       <div class="column button-column">
         <button class="ui button olive" (click)="addOption(newOption.value); newOption.value = '';">
           <i class="add circle icon"></i>
-          Add
+          Add   
         </button>
       </div>
     </div>

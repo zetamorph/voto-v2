@@ -1,3 +1,15 @@
-.ui.grid {
-  margin: 0;
+.poll-option-list {
+  margin-top: 1rem;
+}
+
+.delete-poll-item {
+  padding-top: calc(.21428571em * 2) !important;
+}
+
+.row > .column.button-column {
+  display: flex;
+  justify-content: center;
+  &>.ui.button {
+    width: 100%;
+  }  
 }

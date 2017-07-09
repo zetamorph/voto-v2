@@ -5,4 +5,7 @@
 .row > .column.button-column {
   display: flex;
   justify-content: center;
+  &>.ui.button {
+    width: 100%;
+  }  
 }

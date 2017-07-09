@@ -4,6 +4,9 @@ import "rxjs/add/operator/filter";
 
 import { SemanticSidebarComponent } from "ng-semantic/ng-semantic";
 
+import { UserService } from "./shared/services";
+import { User } from "./shared/models";
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,15 +17,39 @@ export class AppComponent {
   sidebarChild: SemanticSidebarComponent;
 
   constructor(
-    private router: Router
-  ) {
-    router.events
+    private router: Router,
+    private userService: UserService
+  ) {}
+
+  currentUser: User;
+  error: string = "please restart computer";
+
+  loggedIn() {
+    return Object.keys(this.currentUser).length !== 0;
+  }
+
+  ngOnInit() {
+
+    // hide the sidebar whenever navigation is finished
+    this.router.events
     .filter(event => event instanceof NavigationEnd)
     .subscribe((event:NavigationEnd) => {
       this.sidebarChild.hide();
     });
+
+    this.userService.currentUser.subscribe(
+      (user: User) => {
+        this.currentUser = user;
+      }
+    );
+
+    this.userService.getUserFromToken();
+
   }
 
-  error: string = "please restart computer";
+  logout(): void {
+    this.userService.logout();
+    this.router.navigateByUrl("/");
+  }
 
 }

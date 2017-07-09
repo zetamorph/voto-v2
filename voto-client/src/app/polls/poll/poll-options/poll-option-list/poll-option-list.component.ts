@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
 
-import { Option, VoteService } from "./../../../../shared";
+import { Option, VoteService, OptionService } from "./../../../../shared";
 
 @Component({
   selector: "poll-option-list",
@@ -9,18 +9,29 @@ import { Option, VoteService } from "./../../../../shared";
 })
 export class PollOptionListComponent {
   constructor(
-    private voteService: VoteService
+    private voteService: VoteService,
+    private optionService: OptionService
   ) {}
   @Input() options: Option[];
+  @Input() pollId: number;
   @Output() pollChange = new EventEmitter<boolean>();
 
-  voteOnOption(pollId: number, optionId: number) {
-    this.voteService.vote(pollId, optionId)
+  voteOnOption(optionId: number) {
+    this.voteService.vote(this.pollId, optionId)
     .subscribe(
       data => {
         console.log("voted");
         this.pollChange.emit(true);
       });
+  }
+
+  addOption(optionTitle: string) {
+    
+    this.optionService.postOption(optionTitle, this.pollId)
+      .subscribe(
+        option => this.options.push(option),
+        err => console.error(err)
+      )
   }
 
 }

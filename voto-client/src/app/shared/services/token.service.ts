@@ -6,11 +6,13 @@ export class TokenService {
     return window.localStorage.getItem("jwt");
   }
 
-  setToken(token: string): void {
+  setToken(token: string): Promise<any> {
     window.localStorage.setItem("jwt", token);
+    return Promise.resolve();
   }
 
-  deleteToken(): void {
+  deleteToken(): Promise<any> {
     window.localStorage.removeItem("jwt");
+    return Promise.resolve();
   }
 }
