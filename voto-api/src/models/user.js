@@ -13,7 +13,7 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       unique: true,
       validate: {
-        isEmail: true
+        isEmail: { message: "Invalid e-mail" }
       }
     },
     facebookID: {

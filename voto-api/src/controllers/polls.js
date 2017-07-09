@@ -4,9 +4,25 @@ const db = require("./../db/db");
 module.exports = {
 
   getPolls(req,res) {
+
     const query = req.query;
-    
     let sqlOptions = {};
+    
+    sqlOptions.include = [  
+      {
+        model: db.user,
+        attributes: ["id", "username"]
+      },
+      { model: db.option, 
+        attributes: [
+          [db.sequelize.literal(`(SELECT COUNT(votes.id) FROM votes WHERE votes.optionId = options.id)`), "votesForOption"]
+        ],
+        include: {
+          model: db.vote,
+          attributes: []
+        }
+      }
+    ];
     sqlOptions.limit = query.limit || 20;
     sqlOptions.order = [["id","DESC"]];
 
@@ -28,10 +44,19 @@ module.exports = {
 
     db.poll.findAll(sqlOptions)
     .then((polls) => {
-      res.status(200).json(polls);
+      let pollData = polls.map(poll => poll.get({plain: true}));    
+      pollData.forEach((el, idx, arr) => {
+        el.totalVotes = el.options.reduce((acc, val) => {
+          return acc + val.votesForOption;
+        }, 0);
+        delete el.options;
+      });
+      
+      res.status(200).json(pollData);
     })
     .catch((err) => {
-      res.status(404).json({ error: "No polls not found" });
+      console.log(err);
+      res.status(404).json({ error: err });
     });
   },
 
@@ -95,6 +120,11 @@ module.exports = {
       res.status(500).json({ err: "Internal Server Error" });
     });
   
+  },
+
+  getPollsTotalVotes(poll) {
+    console.log(poll);
+    return 1;
   }
 
 }

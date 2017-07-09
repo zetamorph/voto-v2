@@ -7,8 +7,13 @@ module.exports = function (sequelize, DataTypes) {
       validate: {
         len: [5, 50]
       }
+    },
+    imageUrl: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        isUrl: { message: "Invalid URL" }
+      }
     }
   });
 }
-
-
