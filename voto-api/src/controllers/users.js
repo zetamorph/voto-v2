@@ -5,6 +5,17 @@ const jwt = require("jsonwebtoken");
 
 module.exports = {
 
+  getUser(req, res) {
+    /* We don´t have to check if a user is on the request as passport-token 
+    already returned a 401 if no user was found for the sent token */
+    const publicUser = _.pick(req.user, "id", "username", "email", "avatarUrl");
+    res.status(200).json(req.user);
+  },
+
+  getPublicUser(req, res) {
+    // retrieve username, avatar, etc with req.params.userId
+  },
+
   postUser(req,res) {
     /* Passport-Facebook-Token has already created the User Instance, 
     so we just have to create and send back a JWT */
@@ -30,6 +41,7 @@ module.exports = {
     else {
       res.status(403).json({ err: "Users can only delete themselves" });
     }
-  }
+  },
+
 }
    

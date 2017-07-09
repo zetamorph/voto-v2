@@ -42,6 +42,10 @@ module.exports = {
       }
     }
 
+    if(query.userId) {
+      sqlOptions.where = { userId: query.userId };
+    }
+
     db.poll.findAll(sqlOptions)
     .then((polls) => {
       let pollData = polls.map(poll => poll.get({plain: true}));    

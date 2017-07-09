@@ -18,6 +18,12 @@ module.exports = function (sequelize, DataTypes) {
     },
     facebookID: {
       type: DataTypes.STRING
+    },
+    avatarUrl: {
+      type: DataTypes.STRING,
+      validate: { 
+        isUrl: { message: "Invalid URL" }
+      }
     }
   }, {
     hooks: {
