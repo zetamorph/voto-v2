@@ -30,6 +30,10 @@ export class PollComponent implements OnInit {
     return Object.keys(this.currentUser).length !== 0;
   }
 
+  userOwnsPoll(): boolean {
+    return this.currentUser.id === this.poll.userId;
+  }
+
   populate() {
     this.getPoll();
     this.getOptions();

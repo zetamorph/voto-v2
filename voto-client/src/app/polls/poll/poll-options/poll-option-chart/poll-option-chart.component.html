@@ -1,9 +1,11 @@
-<div *ngIf="options">
-  <canvas baseChart width="" height=""
-          [data]="chartData"
-          [labels]="chartLabels"
-          [chartType]="chartType"
-          [legend]="true"
-          
-  ></canvas>
-</div>
+<ngx-charts-pie-chart
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="chartData"
+      [legend]="false"
+      [explodeSlices]="explodeSlices"
+      [labels]="showLabels"
+      [doughnut]="doughnut"
+      [gradient]="gradient"
+      (select)="onSelect($event)">
+</ngx-charts-pie-chart>

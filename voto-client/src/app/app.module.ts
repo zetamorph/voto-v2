@@ -7,7 +7,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FacebookModule } from "ngx-facebook";
 import { NgSemanticModule } from "ng-semantic/ng-semantic";
-import { ChartsModule } from "ng2-charts";
+import { NgxChartsModule } from "@swimlane/ngx-charts";
 
 import { AppComponent } from "./app.component";
 import { PollListComponent } from "./polls/poll-list/poll-list.component";
@@ -39,7 +39,7 @@ import { ApiService, PollService, OptionService, VoteService, UserService, Token
     FlexLayoutModule,
     NgSemanticModule,
     FacebookModule.forRoot(),
-    ChartsModule,
+    NgxChartsModule,
     AppRoutingModule
   ],
   providers: [ 

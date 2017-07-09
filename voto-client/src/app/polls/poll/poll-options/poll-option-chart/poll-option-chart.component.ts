@@ -1,5 +1,4 @@
-import { Component, Input, ViewChild, OnInit, OnChanges, AfterViewInit, SimpleChanges } from "@angular/core";
-import { BaseChartDirective } from "ng2-charts";
+import { Component, Directive, Input, OnInit, OnChanges, AfterViewInit, SimpleChanges } from "@angular/core";
 
 import { Option } from "./../../../../shared";
 
@@ -7,26 +6,32 @@ import { Option } from "./../../../../shared";
   selector: "poll-option-chart",
   templateUrl: "./poll-option-chart.component.html"
 })
-export class PollOptionChartComponent implements OnInit, AfterViewInit {
-  @ViewChild(BaseChartDirective) chart: BaseChartDirective;
+export class PollOptionChartComponent implements OnInit, OnChanges {
   @Input() options: Option[];
-  chartWidth: string = "400";
-  chartHeight: string = "400";
-  chartType: string = "doughnut";
-  chartData: number[] = [];
-  chartLabels: string[] = [];
+  
+  view: any[] = [400, 400];
+  chartData: any[];
+  colorScheme = { domain: ["#5AA454", "#A10A28", "#C7B42C", "#AAAAAA"] };
   
   ngOnInit() {
-    this.options.forEach((el, idx, arr) => {
-      this.chartData.push(el.voteCount);
-      this.chartLabels.push(el.title); 
-    });
+    this.chartData = this.makeChartData();
   }
 
-  ngAfterViewInit() {
-    if(this.chart.chart) {
-      this.chart.chart.update();
-    }
+  ngOnChanges() {
+    this.chartData = this.makeChartData();
+  }
+
+  makeChartData() {
+    console.log("making chart data");
+    let data = [];
+    this.options.forEach((el, idx, arr) => {
+      data.push({ name: el.title, value: el.voteCount });
+    });
+    return data;
+  }
+
+  onSelect(event) {
+    
   }
 
 }

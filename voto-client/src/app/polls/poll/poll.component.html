@@ -2,11 +2,11 @@
   <h1 class="ui center aligned header voto-page-header">{{poll.title}}</h1>
   <div class="ui stackable two column grid">
     <div class="column">
-      <poll-option-chart *ngIf="options" [options]="options"> chart here </poll-option-chart>
+      <poll-option-chart [options]="options"> chart here </poll-option-chart>
     </div>
     <div class="column poll-option-list">
       <poll-option-list *ngIf="options" [options]="options" [pollId]="poll.id" [loggedIn]="loggedIn()" (pollChange)="populate();"></poll-option-list>
-      <div *ngIf="loggedIn()" class="ui list">
+      <div *ngIf="userOwnsPoll()" class="ui list">
         <div class="ui item two column grid delete-poll-item">
           <div class="row ui segment">
             <div class="column">

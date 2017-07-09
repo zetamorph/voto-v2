@@ -11,7 +11,7 @@
   <a class="item" [routerLink]="['/polls']" [queryParams]="{ sort: 'latest'}">
     <i class="block layout icon"></i>Latest
   </a>
-  <a class="item" routerLink="/login">
+  <a class="item" *ngIf="!loggedIn()" routerLink="/login">
     <i class="smile icon"></i>Login
   </a>
   <a class="item" *ngIf="loggedIn()" routerLink="/polls/new">
@@ -20,10 +20,6 @@
   <a class="item" *ngIf="loggedIn()" [routerLink]="['/polls']" [queryParams]="{ userId: currentUser.id }">
     <i class="smile icon"></i>My Polls
   </a>
-  <a class="item" *ngIf="loggedIn()" (click)="logout()">
-    <i class="smile icon"></i>Logout
-  </a>
- 
 </sm-sidebar>
 <div class="pusher"> 
   <sm-menu class="huge borderless menu">
