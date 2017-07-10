@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from "@angular/router";
 import "rxjs/add/operator/filter";
 
@@ -12,7 +12,7 @@ import { User } from "./shared/models";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   @ViewChild(SemanticSidebarComponent)
   sidebarChild: SemanticSidebarComponent;
 

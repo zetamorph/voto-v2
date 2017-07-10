@@ -1,11 +1,25 @@
-<ngx-charts-pie-chart
+<i class="icon chart chart-switch" [class.bar]="pieChart" [class.pie]="!pieChart" (click)="switchChartType()"></i>
+<!-- Here we have to use a style binding as *ngIf breaks the ngAfterViewInit() method -->
+<ngx-charts-pie-chart class="chart" [style.display]="pieChart ? 'inherit' : 'none'"
       [view]="view"
       [scheme]="colorScheme"
       [results]="chartData"
       [legend]="false"
-      [explodeSlices]="explodeSlices"
-      [labels]="showLabels"
-      [doughnut]="doughnut"
-      [gradient]="gradient"
-      (select)="onSelect($event)">
+      [labels]="false"
+      [explodeSlices]="false"
+      [labels]="false"
+      [doughnut]="false"
+      [gradient]="gradient">
 </ngx-charts-pie-chart>
+<!-- Here we have to use a style binding as *ngIf breaks the ngAfterViewInit() method -->
+<ngx-charts-bar-horizontal class="chart" [style.display]="pieChart ? 'none' : 'inherit' "
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="chartData"
+      [gradient]="gradient"
+      [xAxis]="false"
+      [yAxis]="true"
+      [legend]="false"
+      [showXAxisLabel]="false"
+      [showYAxisLabel]="false">
+    </ngx-charts-bar-horizontal>

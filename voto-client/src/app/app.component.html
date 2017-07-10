@@ -31,7 +31,7 @@
       <a class="ui item">
         {{ currentUser.username }}
       </a>
-      <a class="ui item">
+      <a class="ui item" (click)="logout()">
         Logout
       </a>
     </div>
@@ -44,7 +44,7 @@
         </div>
         <p>{{error}}</p>
       </div>
-  </div>
+    </div>
     <router-outlet></router-outlet>
   </div>
 </div>

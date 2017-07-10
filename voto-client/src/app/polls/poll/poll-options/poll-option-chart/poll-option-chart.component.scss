@@ -1,0 +1,12 @@
+.chart-switch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 3rem;
+}
+
+.ngx-charts {
+  @media(max-width: 768px) {
+    padding: 1rem;
+  }
+}

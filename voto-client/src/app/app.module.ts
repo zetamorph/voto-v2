@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
 import { AppRoutingModule } from "./app-routing.module";
-import { FlexLayoutModule } from "@angular/flex-layout";
 import { FacebookModule } from "ngx-facebook";
 import { NgSemanticModule } from "ng-semantic/ng-semantic";
 import { NgxChartsModule } from "@swimlane/ngx-charts";
@@ -36,7 +35,6 @@ import { ApiService, PollService, OptionService, VoteService, UserService, Token
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
-    FlexLayoutModule,
     NgSemanticModule,
     FacebookModule.forRoot(),
     NgxChartsModule,

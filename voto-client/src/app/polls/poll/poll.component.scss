@@ -4,6 +4,7 @@
 
 .delete-poll-item {
   padding-top: calc(.21428571em * 2) !important;
+  margin-bottom: 1rem;
 }
 
 .row > .column.button-column {
@@ -12,4 +13,9 @@
   &>.ui.button {
     width: 100%;
   }  
+}
+
+.poll-option-chart {
+  display: flex;
+  justify-content: center;
 }

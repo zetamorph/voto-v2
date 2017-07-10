@@ -4,12 +4,23 @@ import { Option } from "./../../../../shared";
 
 @Component({
   selector: "poll-option-chart",
-  templateUrl: "./poll-option-chart.component.html"
+  templateUrl: "./poll-option-chart.component.html",
+  styleUrls: ["./poll-option-chart.component.scss"]
 })
 export class PollOptionChartComponent implements OnInit, OnChanges {
   @Input() options: Option[];
+
+  showXAxis = true;
+  showYAxis = true;
+  gradient = false;
+  showLegend = true;
+  showXAxisLabel = true;
+  xAxisLabel = 'Country';
+  showYAxisLabel = true;
+  yAxisLabel = 'Population';
   
-  view: any[] = [400, 400];
+  view: any[] = ["90%", "auto"];
+  pieChart: boolean = true;
   chartData: any[];
   colorScheme = { domain: ["#5AA454", "#A10A28", "#C7B42C", "#AAAAAA"] };
   
@@ -30,8 +41,8 @@ export class PollOptionChartComponent implements OnInit, OnChanges {
     return data;
   }
 
-  onSelect(event) {
-    
+  switchChartType() {
+    this.pieChart = this.pieChart? false : true;
   }
 
 }

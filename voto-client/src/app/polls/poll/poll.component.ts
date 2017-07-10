@@ -25,6 +25,7 @@ export class PollComponent implements OnInit {
 
   pollChanged: boolean = false;
   currentUser: User;
+  attemptingDelete: boolean = false;
 
   loggedIn(): boolean {
     return Object.keys(this.currentUser).length !== 0;
@@ -57,6 +58,10 @@ export class PollComponent implements OnInit {
           options => this.options = options,
           err => console.error(err)
         );
+  }
+
+  attemptDelete() {
+    this.attemptingDelete = true;
   }
 
   deletePoll(pollId: number) {
