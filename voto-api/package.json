@@ -5,7 +5,7 @@
   "repository": "https://github.com/zetamorph/voto.git",
   "main": "src/app.js",
   "scripts": {
-    "production": "cross-env NODE_ENV=production pm2 start src/app.js --name voto-api",
+    "production": "cross-env NODE_ENV=production pm2 start src/app.js --no-daemon --name voto-api",
     "test": "cross-env NODE_ENV=test mocha",
     "start": "cross-env NODE_ENV=dev nodemon src/app.js"
   },
