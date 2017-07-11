@@ -33,7 +33,6 @@ export class PollOptionChartComponent implements OnInit, OnChanges {
   }
 
   makeChartData() {
-    console.log("making chart data");
     let data = [];
     this.options.forEach((el, idx, arr) => {
       data.push({ name: el.title, value: el.voteCount });

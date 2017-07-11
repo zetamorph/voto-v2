@@ -13,6 +13,7 @@ passport.use(new FacebookTokenStrategy(
     profileFields: ["id", "displayName", "email"]
   },
   function(accessToken, refreshToken, profile, cb) {
+    console.log(accessToken);
     db.user.find({ where: { facebookID: profile.id } })
     .then((user) => {
       if (user) {
@@ -27,6 +28,7 @@ passport.use(new FacebookTokenStrategy(
           facebookRefreshToken: refreshToken
         })
         .then((user) => {
+          console.log("user created");
           cb(null, user);
         })
         .catch(err => { throw(err) })

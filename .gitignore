@@ -1,5 +1,6 @@
 node_modules
-api/data
+voto-api/data
+voto-api/config
 *.sqlite
 voto.sqlite
 vote_test.sqlite

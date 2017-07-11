@@ -103,7 +103,6 @@ export class PollComponent implements OnInit {
   makeEmailLink() {
     let pollTitle = this.encodeStringForUrl(this.poll.title);
     let pageUrl = this.getPageUrl();
-    console.log(pollTitle);
     return `mailto:?subject=${pollTitle}&amp;body=Vote%20here:%20${pageUrl}`
   }
 
