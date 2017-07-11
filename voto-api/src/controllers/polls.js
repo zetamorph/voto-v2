@@ -26,11 +26,11 @@ module.exports = {
     sqlOptions.limit = query.limit || 20;
     sqlOptions.order = [["id","DESC"]];
 
-    if(query.offset) {
+    if (query.offset) {
       sqlOptions.offset = query.offset;
     }
 
-    if(query.sort) {
+    if (query.sort) {
       switch (query.sort) {
         case "popular": {
           //TODO find polls with the most votes and return them
@@ -42,12 +42,15 @@ module.exports = {
       }
     }
 
-    if(query.userId) {
+    if (query.userId) {
       sqlOptions.where = { userId: query.userId };
     }
 
     db.poll.findAll(sqlOptions)
     .then((polls) => {
+      if (!polls) {
+        res.status(404).json({ error: "No polls found." });
+      }
       let pollData = polls.map(poll => poll.get({plain: true}));    
       pollData.forEach((el, idx, arr) => {
         el.totalVotes = el.options.reduce((acc, val) => {
@@ -55,12 +58,11 @@ module.exports = {
         }, 0);
         delete el.options;
       });
-      
       res.status(200).json(pollData);
     })
     .catch((err) => {
       console.log(err);
-      res.status(404).json({ error: err });
+      res.status(500).json({ error: "Something went wrong. Please try again." });
     });
   },
 
@@ -81,6 +83,9 @@ module.exports = {
       );
     })
     .then((results) => {
+      if (!results[0]) {
+        res.status(404).json({ error: "Poll not found." })
+      }
       resObj.options = [];
       results[0].forEach((el, index, arr) => {
         resObj.options.push({ id: el.optionId, title: el.title, votes: el.votes });
@@ -88,7 +93,7 @@ module.exports = {
       res.status(200).json(resObj);
     })
     .catch((err) => {
-      res.status(500).json({ err: "Internal Server Error" });
+      res.status(500).json({ error: "Something went wrong. Please try again." });
     });
   },
 
@@ -99,7 +104,10 @@ module.exports = {
     })
     .then((createdPoll) => {
       res.status(201).json(createdPoll.dataValues);
-    });
+    })
+    .catch((err) => {
+      res.status(500).json({ error: "Something went wrong. Please try again." });
+    })
   },
 
   deletePoll(req,res) {
@@ -108,8 +116,8 @@ module.exports = {
 
     db.poll.findById(pollId)
     .then((poll) => {
-      if(req.user.id !== poll.dataValues.userId) {
-        return res.status(403).json({ err: "Only the creator can delete polls" });
+      if (req.user.id !== poll.dataValues.userId) {
+        return res.status(403).json({ error: "Only the creator can delete polls" });
       }
       return db.poll.destroy({
         where: {
@@ -121,14 +129,9 @@ module.exports = {
       res.status(204).json({ success: "true" });
     })
     .catch((err) => {
-      res.status(500).json({ err: "Internal Server Error" });
+      res.status(500).json({ error: "Something went wrong. Please try again." });
     });
   
-  },
-
-  getPollsTotalVotes(poll) {
-    console.log(poll);
-    return 1;
   }
 
 }

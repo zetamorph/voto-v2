@@ -13,7 +13,6 @@ passport.use(new FacebookTokenStrategy(
     profileFields: ["id", "displayName", "email"]
   },
   function(accessToken, refreshToken, profile, cb) {
-    console.log(accessToken);
     db.user.find({ where: { facebookID: profile.id } })
     .then((user) => {
       if (user) {
@@ -30,10 +29,11 @@ passport.use(new FacebookTokenStrategy(
         .then((user) => {
           cb(null, user);
         })
-        .catch(err => { throw(err); })
+        .catch(err => { throw(err) })
       }
     })
-    .catch(console.error);
+    /* Since providing this error to the Client might leak some implementation details, we just log it */
+    .catch(console.error); 
   }
 ));
 
@@ -43,7 +43,7 @@ passport.use(new JWTStrategy({
 }, (jwtPayload, done) => {
   db.user.find({ where: { id: jwtPayload.id}})
   .then((user) => {
-    if(user) {
+    if (user) {
       done(null, user);
     }
     else {

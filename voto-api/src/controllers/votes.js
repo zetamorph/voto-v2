@@ -10,7 +10,6 @@ module.exports = {
       ip: req.ip,
       optionId: req.params.optionId
     };
-    
     let pollId;
 
     db.option.findById(voteData.optionId)
@@ -42,11 +41,11 @@ module.exports = {
       if (created) {
         res.status(201).json({ success: "true" });
       } else {
-        res.status(403).json({ err: "User already voted on this poll" });
+        res.status(403).json({ error: "You already voted on this poll." });
       }
     })
     .catch((err) => {
-      res.status(500).json({ err: "Internal Server Error" });
+      res.status(500).json({ error: "Something went wrong. Please try again." });
     });
   }
 }

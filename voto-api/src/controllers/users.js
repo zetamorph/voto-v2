@@ -8,12 +8,12 @@ module.exports = {
   getUser(req, res) {
     /* We don´t have to check if a user is on the request as passport-token 
     already returned a 401 if no user was found for the sent token */
-    const publicUser = _.pick(req.user, "id", "username", "email", "avatarUrl");
     res.status(200).json(req.user);
   },
 
   getPublicUser(req, res) {
-    // retrieve username, avatar, etc with req.params.userId
+    // TODO: retrieve username, avatar, etc with req.params.userId
+    
   },
 
   postUser(req,res) {
@@ -23,7 +23,6 @@ module.exports = {
     res.status(201).json({ token: "JWT " + token });
   },
 
-  //getUser(req, res) {},
   deleteUser(req,res) {
     const userId = parseInt(req.params.userId);
     if (userId === req.user.id) {
@@ -35,11 +34,11 @@ module.exports = {
         res.status(204).json({ success: "true" });
       })
       .catch((err) => {
-        res.status(500).json({ err: "Internal Server Error" })
+        res.status(500).json({ error: "Something went wrong. Please try again." });
       });
     }
     else {
-      res.status(403).json({ err: "Users can only delete themselves" });
+      res.status(403).json({ error: "Users can only delete themselves." });
     }
   },
 
