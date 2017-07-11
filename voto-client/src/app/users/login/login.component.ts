@@ -1,7 +1,9 @@
 import { Component } from "@angular/core";
 import { FacebookService, LoginResponse } from "ngx-facebook";
 
-import { UserService } from "./../../shared/services";
+import { environment } from "./../../../environments/environment";
+
+import { UserService, MessageService } from "./../../shared/services";
 
 @Component({
   selector: "login",
@@ -11,10 +13,11 @@ import { UserService } from "./../../shared/services";
 export class LoginComponent {
   constructor(
     private facebookService: FacebookService,
-    private userService: UserService
+    private userService: UserService,
+    private messageService: MessageService
   ) {
     facebookService.init({
-      appId: "1795637644083185",
+      appId: environment.fbAppId,
       version: "v2.9"
     });
   }

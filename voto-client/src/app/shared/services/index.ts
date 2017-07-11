@@ -4,3 +4,4 @@ export * from "./option.service";
 export * from "./token.service";
 export * from "./vote.service";
 export * from "./user.service";
+export * from "./message.service";

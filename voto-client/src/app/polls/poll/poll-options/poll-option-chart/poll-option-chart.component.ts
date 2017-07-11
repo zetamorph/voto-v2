@@ -19,7 +19,7 @@ export class PollOptionChartComponent implements OnInit, OnChanges {
   showYAxisLabel = true;
   yAxisLabel = 'Population';
   
-  view: any[] = ["90%", "auto"];
+  view: any[] = [400, 400];
   pieChart: boolean = true;
   chartData: any[];
   colorScheme = { domain: ["#5AA454", "#A10A28", "#C7B42C", "#AAAAAA"] };

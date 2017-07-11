@@ -21,18 +21,16 @@ export class PollOptionListComponent {
     this.voteService.vote(this.pollId, optionId)
     .subscribe(
       data => {
-        console.log("voted");
         this.pollChange.emit(true);
-      });
+      }
+    )
   }
 
   addOption(optionTitle: string) {
-    
     this.optionService.postOption(optionTitle, this.pollId)
-      .subscribe(
-        option => this.options.push(option),
-        err => console.error(err)
-      )
+    .subscribe(
+      option => this.options.push(option)
+    )
   }
 
 }

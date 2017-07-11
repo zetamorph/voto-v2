@@ -4,24 +4,27 @@
     <div class="column">
       <poll-option-chart class="poll-option-chart" [options]="options"> chart here </poll-option-chart>
       <h4 class="header">Share this poll</h4>
-      <div class="ui fluid three item menu">
+      <div class="ui fluid three item borderless menu">
         <div class="item">
-          <div class="ui button primary">
+          <div class="ui button primary" (click)="shareOnFacebook()">
             <i class="facebook icon"></i>
             Facebook
           </div>
         </div>   
         <div class="item">
-          <div class="ui button teal">
-            <i class="twitter icon"></i>
-            Twitter
-          </div> 
+          <a class="ui button teal"
+             [href]="makeTwitterShareLink()"
+             target="_blank">
+             <i class="twitter icon"></i>
+             Twitter
+          </a>
         </div>
         <div class="item">
-          <div class="ui button violet">
+          <a class="ui button violet" [href]="makeEmailLink()"
+             title="Share by Email">
             <i class="mail outline icon"></i>
             Email
-          </div>
+          </a>
         </div> 
       </div>
     </div>

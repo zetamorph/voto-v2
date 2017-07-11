@@ -1,0 +1,8 @@
+<div #flashContainer class="ui message flash" [ngClass]="{'negative': isError}">
+  <i class="close icon" (click)="hideMessage()"></i>
+  <div *ngIf="currentMessage.text" class="content">
+    <div class="header">{{ messageHeader }}
+    </div>
+    <p>{{ currentMessage.text }}</p>
+  </div>
+</div>

@@ -3,6 +3,7 @@ import { Router, NavigationEnd } from "@angular/router";
 import "rxjs/add/operator/filter";
 
 import { SemanticSidebarComponent } from "ng-semantic/ng-semantic";
+import { FlashComponent } from "./shared/components/flash/flash.component";
 
 import { UserService } from "./shared/services";
 import { User } from "./shared/models";
@@ -22,7 +23,6 @@ export class AppComponent implements OnInit {
   ) {}
 
   currentUser: User;
-  error: string = "please restart computer";
 
   loggedIn() {
     return Object.keys(this.currentUser).length !== 0;

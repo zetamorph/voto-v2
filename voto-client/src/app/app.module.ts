@@ -17,7 +17,8 @@ import { NewPollComponent } from "./polls/new-poll/new-poll.component";
 import { LoginComponent } from "./users/login/login.component";
 import { ProfileComponent } from './users/profile/profile.component';
 
-import { ApiService, PollService, OptionService, VoteService, UserService, TokenService } from "./shared";
+import { ApiService, PollService, OptionService, VoteService, UserService, TokenService, MessageService } from "./shared";
+import { FlashComponent } from './shared/components/flash/flash.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ApiService, PollService, OptionService, VoteService, UserService, Token
     PollOptionListComponent,
     NewPollComponent,
     LoginComponent,
-    ProfileComponent
+    ProfileComponent,
+    FlashComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,8 @@ import { ApiService, PollService, OptionService, VoteService, UserService, Token
     OptionService,
     VoteService,
     UserService,
-    TokenService 
+    TokenService ,
+    MessageService
   ],
   bootstrap: [ AppComponent ],
 })

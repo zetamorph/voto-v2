@@ -3,16 +3,20 @@ import { Http, Headers, Response, URLSearchParams } from "@angular/http";
 import { Observable } from "rxjs/Rx";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
+import "rxjs/observable/empty";
 
 import { environment } from "./../../../environments/environment";
 
+import { Message } from "./../models";
 import { TokenService } from "./token.service";
+import { MessageService } from "./message.service";
 
 @Injectable()
 export class ApiService {
   constructor(
     private http: Http,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private messageService: MessageService
   ) {}
 
   private setHeaders(customHeaders: Object = null): Headers {
@@ -22,12 +26,12 @@ export class ApiService {
       "Accept": "application/json"
     };
 
-    if(customHeaders !== null) {
+    if (customHeaders !== null) {
       headers = Object.assign({}, headers, customHeaders);
     }
 
     /* If a token is set, append it to the request */
-    if(this.tokenService.getToken()) {
+    if (this.tokenService.getToken()) {
       headers["Authorization"] = this.tokenService.getToken();
     }
     
@@ -37,7 +41,7 @@ export class ApiService {
   get(resource: string, params?: URLSearchParams): Observable<any> {
     return this.http.get(`${environment.apiUrl}${resource}`, { headers: this.setHeaders(), params: params })
     .map((res: Response) => res.json())
-    .catch(this.handleError);
+    .catch(this.handleError.bind(this));
   }
 
   post(resource: string, body: Object, customHeaders?: Object): Observable<any> {
@@ -47,7 +51,7 @@ export class ApiService {
       { headers: this.setHeaders(customHeaders) }
     )
     .map((res: Response) => res.json())
-    .catch(this.handleError);
+    .catch(this.handleError.bind(this));
   } 
 
   delete(resource): Observable<any> {
@@ -56,11 +60,18 @@ export class ApiService {
       { headers: this.setHeaders() }
     )
     .map((res: Response) => res.json())
-    .catch(this.handleError);
+    .catch(this.handleError.bind(this));
   }
 
   handleError(error: any) {
-    return Observable.throw(error.json());
+    /* Since passport-jwt on the backend doesn´t respond with an error object in the body, 
+    we have to process it differently */
+    if (error.status === 401) {
+      this.messageService.setMessage(new Message(0, "Please log in to do that."));
+    } else {
+      this.messageService.setMessage(new Message(0, error.json().error || ""));
+    }
+    return Observable.empty();
   }
 
 }
