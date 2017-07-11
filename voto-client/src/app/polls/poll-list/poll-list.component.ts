@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
-import { Observable } from "Rxjs";
+import { Observable } from "rxjs";
 import 'rxjs/add/operator/toPromise';
 
 import { Poll, User } from "./../../shared/models";
